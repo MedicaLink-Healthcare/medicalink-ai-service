@@ -72,9 +72,12 @@ jobs:
 
   deploy-vm:
     needs: build-and-push
+    permissions:
+      contents: read
+      packages: read
     if: |
       always() && needs.build-and-push.result == 'success' &&
-      (github.event_name == 'push' || github.event.inputs.deploy_to_vm == true)
+      (github.event_name == 'push' || inputs.deploy_to_vm == 'true' || github.event.inputs.deploy_to_vm == 'true' || github.event.inputs.deploy_to_vm == true)
     runs-on: ubuntu-latest
     environment: ${{ github.ref_name == 'main' && 'production' || github.ref_name == 'master' && 'production' || 'staging' }}
     steps:

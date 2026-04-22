@@ -34,18 +34,17 @@ echo "$VM_SSH_KEY" > "$SSH_KEY_FILE"
 chmod 600 "$SSH_KEY_FILE"
 
 ssh_exec() {
-  ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "${VM_USER}@${VM_HOST}" "$@"
+  ssh -i "$SSH_KEY_FILE" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o BatchMode=yes -o ConnectTimeout=15 "${VM_USER}@${VM_HOST}" "$@"
 }
 
 if [ "${VM_GIT_PULL:-}" = "true" ]; then
-  echo "[deploy-ai] git pull medicalink-ai-service on VM..."
-  if ssh_exec "cd $AI_DIR && git rev-parse --is-inside-work-tree >/dev/null 2>&1"; then
-    ssh_exec "cd $AI_DIR && git pull --ff-only" || ssh_exec "cd $AI_DIR && git pull" || echo "[deploy-ai] warn: git pull failed"
-  fi
+  echo "[deploy-ai] setting up medicalink-ai-service on VM..."
+  ssh_exec "if [ ! -d \"$AI_DIR/.git\" ]; then mkdir -p \"$AI_DIR\" && git clone https://${GITHUB_OWNER}:${GHCR_TOKEN}@github.com/${GITHUB_REPOSITORY}.git \"$AI_DIR\"; fi"
+  ssh_exec "cd \"$AI_DIR\" && git config pull.rebase false && git pull" || echo "[deploy-ai] warn: git pull failed"
 fi
 
 echo "[deploy-ai] docker login + pull $IMAGE"
-ssh_exec "cd $AI_DIR && echo '$GHCR_TOKEN' | docker login ghcr.io -u '$GITHUB_OWNER' --password-stdin"
-ssh_exec "cd $AI_DIR && export MEDICALINK_AI_IMAGE='$IMAGE' && docker compose -f compose.ghcr.yaml pull && docker compose -f compose.ghcr.yaml up -d"
+ssh_exec "cd \"$AI_DIR\" && echo \"$GHCR_TOKEN\" | docker login ghcr.io -u \"$GITHUB_OWNER\" --password-stdin"
+ssh_exec "cd \"$AI_DIR\" && export MEDICALINK_AI_IMAGE='$IMAGE' && docker compose -f compose.ghcr.yaml pull && docker compose -f compose.ghcr.yaml up -d"
 
 echo "[deploy-ai] done."
