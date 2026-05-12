@@ -12,6 +12,7 @@ from qdrant_client import AsyncQdrantClient
 from medicalink_ai.config import Settings, get_settings
 from medicalink_ai.intent_specialty import suggest_specialties_from_catalog
 from medicalink_ai.rag import DoctorRagService
+from medicalink_ai.semantic_cache import SemanticCacheService
 from medicalink_ai.vector_store import DoctorVectorStore
 
 logging.basicConfig(
@@ -67,16 +68,28 @@ async def run_worker(settings: Settings | None = None) -> None:
         collection_name=s.qdrant_collection_name,
         embedding_model=s.openai_embedding_model,
         openai_api_key=s.openai_api_key,
+        embedding_version=s.embedding_version,
+        max_embedding_tokens=s.max_embedding_tokens,
         hybrid_enabled=s.rag_hybrid_enabled,
         dense_name=s.dense_vector_name,
         sparse_name=s.sparse_vector_name,
         sparse_model_name=s.fastembed_sparse_model,
         prefetch_limit=s.retrieval_prefetch_limit,
     )
+    semantic_cache = None
+    if s.semantic_cache_enabled:
+        semantic_cache = SemanticCacheService(
+            qdrant=qdrant,
+            collection_name=s.semantic_cache_collection,
+            threshold=s.semantic_cache_threshold,
+            model_name=s.semantic_cache_model,
+        )
+
     rag = DoctorRagService(
         store=store,
         openai=openai_client,
         settings=s,
+        semantic_cache=semantic_cache,
     )
 
     connection = await aio_pika.connect_robust(s.rabbitmq_url)
@@ -99,6 +112,8 @@ async def run_worker(settings: Settings | None = None) -> None:
         await ev_queue.bind(topic, routing_key=key)
 
     await store.ensure_collection()
+    if semantic_cache:
+        await semantic_cache.ensure_collection()
     logger.info(
         "Medicalink AI worker: RPC queue=%s events=%s",
         s.ai_rpc_queue,

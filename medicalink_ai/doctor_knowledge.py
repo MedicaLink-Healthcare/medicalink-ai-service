@@ -45,7 +45,16 @@ def _locations_text(locations: Any) -> str:
     return ", ".join(parts) if parts else ""
 
 
-def build_doctor_document(profile: dict[str, Any]) -> tuple[str, dict[str, Any]]:
+from medicalink_ai.token_budget import TokenBudgetManager
+
+
+def build_doctor_document(
+    profile: dict[str, Any], 
+    token_budget: TokenBudgetManager,
+    max_tokens: int = 1500,
+    embedding_model: str = "text-embedding-3-small",
+    embedding_version: str = "v1"
+) -> tuple[str, dict[str, Any]]:
     """
     Trả về (text để embed, payload metadata cho Qdrant).
     profile: DoctorProfileResponseDto-like hoặc public list item từ API.
@@ -77,6 +86,7 @@ def build_doctor_document(profile: dict[str, Any]) -> tuple[str, dict[str, Any]]
         _join_lines("Giải thưởng", profile.get("awards")),
     ]
     text = "\n".join(p for p in text_parts if p)
+    text = token_budget.token_aware_truncate(text, max_tokens)
 
     specialty_ids: list[str] = []
     for s in profile.get("specialties") or []:
@@ -96,7 +106,10 @@ def build_doctor_document(profile: dict[str, Any]) -> tuple[str, dict[str, Any]]
         "specialty_ids": specialty_ids,
         "specialties_label": specs,
         "location_ids": location_ids,
+        "introduction_text": intro,
         "source_json": json.dumps(profile, ensure_ascii=False, default=str)[:8000],
+        "embedding_model": embedding_model,
+        "embedding_version": embedding_version,
     }
     return text, payload
 

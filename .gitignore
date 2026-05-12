@@ -85,6 +85,8 @@ nginx/ssl/
 CLAUDE.md
 .claude
 .gemini
+.agent
+.github
 
 
 .env

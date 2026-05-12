@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import logging
 import re
+from dataclasses import dataclass
 from typing import Any, cast
 
 from openai import AsyncOpenAI
@@ -11,6 +12,7 @@ from medicalink_ai.config import Settings
 from medicalink_ai.eval_log import StepTimer, append_rag_eval, build_eval_record
 from medicalink_ai.gemini_llm import generate_json_with_gemini
 from medicalink_ai.rerank import RerankMode, rerank_pipeline
+from medicalink_ai.semantic_cache import SemanticCacheService
 from medicalink_ai.vector_store import DoctorVectorStore
 
 logger = logging.getLogger(__name__)
@@ -27,16 +29,12 @@ Quy tắc:
 """
 
 
+@dataclass(slots=True, kw_only=True)
 class DoctorRagService:
-    def __init__(
-        self,
-        store: DoctorVectorStore,
-        openai: AsyncOpenAI,
-        settings: Settings,
-    ) -> None:
-        self.store = store
-        self.openai = openai
-        self.settings = settings
+    store: DoctorVectorStore
+    openai: AsyncOpenAI
+    settings: Settings
+    semantic_cache: SemanticCacheService | None = None
 
     async def recommend(
         self,
@@ -46,6 +44,30 @@ class DoctorRagService:
         specialty_ids: list[str] | None = None,
     ) -> dict[str, Any]:
         timer = StepTimer()
+        
+        # 1. Semantic Cache check
+        if self.settings.semantic_cache_enabled and self.semantic_cache:
+            cached_result = await self.semantic_cache.get_cache(symptoms)
+            if cached_result:
+                cached_result["_cached"] = True
+                
+                # We still append to eval log for metrics (with 0 latency)
+                append_rag_eval(
+                    self.settings.rag_eval_log_path,
+                    build_eval_record(
+                        query=symptoms,
+                        top_k=top_k,
+                        retrieved_ids=[],
+                        recommended_ids=[r.get("doctor_id") for r in cached_result.get("recommendations", [])],
+                        hybrid_used=False,
+                        legacy_collection=False,
+                        rerank_mode="cached",
+                        latency_ms=timer.elapsed_ms(),
+                        extra={"cache_hit": True},
+                    ),
+                )
+                return cached_result
+
         top_k = max(1, min(top_k, 15))
         retrieve_limit = min(max(top_k * 6, 30), 80)
         prov = (self.settings.llm_provider or "openai").strip().lower()
@@ -182,7 +204,13 @@ class DoctorRagService:
             ),
         )
 
-        return {"recommendations": cleaned[:top_k]}
+        final_result = {"recommendations": cleaned[:top_k]}
+        
+        # Save to Semantic Cache
+        if self.settings.semantic_cache_enabled and self.semantic_cache:
+            await self.semantic_cache.set_cache(symptoms, final_result)
+
+        return final_result
 
 
 def _fallback_parse(

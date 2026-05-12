@@ -34,4 +34,7 @@ class DoctorQdrantPayload(TypedDict, total=False):
     specialty_ids: list[str]
     specialties_label: str
     location_ids: list[str]
+    introduction_text: str
     source_json: str
+    embedding_model: str
+    embedding_version: str

@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import asyncio
 import logging
+from dataclasses import dataclass, field
 from typing import Any
 
 from openai import AsyncOpenAI
@@ -19,43 +21,40 @@ from qdrant_client.models import (
 
 from medicalink_ai.doctor_knowledge import build_doctor_document, doctor_point_id
 from medicalink_ai.sparse_encoder import text_to_sparse_vector
+from medicalink_ai.token_budget import TokenBudgetManager
 
 logger = logging.getLogger(__name__)
 
 DEFAULT_VECTOR_SIZE = 1536
 
 
+@dataclass(slots=True, kw_only=True)
 class DoctorVectorStore:
     """Qdrant: hybrid (dense + sparse) hoặc legacy (chỉ dense, collection cũ)."""
 
-    def __init__(
-        self,
-        qdrant: AsyncQdrantClient,
-        openai: AsyncOpenAI,
-        collection_name: str,
-        embedding_model: str,
-        openai_api_key: str,
-        *,
-        hybrid_enabled: bool = True,
-        dense_name: str = "dense",
-        sparse_name: str = "lexical",
-        sparse_model_name: str = "Qdrant/bm25",
-        prefetch_limit: int = 40,
-    ) -> None:
-        self.qdrant = qdrant
-        self.openai = openai
-        self.collection_name = collection_name
-        self.embedding_model = embedding_model
-        self.hybrid_enabled = hybrid_enabled
-        self.dense_name = dense_name
-        self.sparse_name = sparse_name
-        self.sparse_model_name = sparse_model_name
-        self.prefetch_limit = prefetch_limit
-        self._legacy_single_vector: bool | None = None
+    qdrant: AsyncQdrantClient
+    openai: AsyncOpenAI
+    collection_name: str
+    embedding_model: str
+    openai_api_key: str
+    embedding_version: str = "v1"
+    max_embedding_tokens: int = 1500
+    hybrid_enabled: bool = True
+    dense_name: str = "dense"
+    sparse_name: str = "lexical"
+    sparse_model_name: str = "Qdrant/bm25"
+    prefetch_limit: int = 40
+
+    _legacy_single_vector: bool | None = field(init=False, default=None)
+    _token_budget: TokenBudgetManager = field(init=False)
+
+    def __post_init__(self) -> None:
+        self._token_budget = TokenBudgetManager(model_name=self.embedding_model)
 
     async def embed_text(self, text: str) -> list[float]:
+        # text is already truncated before we reach here
         response = await self.openai.embeddings.create(
-            input=[text.replace("\n", " ")[:8000]],
+            input=[text.replace("\n", " ").strip()],
             model=self.embedding_model,
         )
         return response.data[0].embedding
@@ -120,7 +119,13 @@ class DoctorVectorStore:
 
     async def upsert_doctor(self, profile: dict[str, Any]) -> None:
         await self.ensure_collection()
-        text, payload = build_doctor_document(profile)
+        text, payload = build_doctor_document(
+            profile,
+            token_budget=self._token_budget,
+            max_tokens=self.max_embedding_tokens,
+            embedding_model=self.embedding_model,
+            embedding_version=self.embedding_version,
+        )
         if not payload["doctor_id"]:
             logger.warning("skip upsert: missing doctor id in profile")
             return
@@ -139,7 +144,10 @@ class DoctorVectorStore:
                 ],
             )
         else:
-            sparse = text_to_sparse_vector(text, self.sparse_model_name)
+            # We don't need to truncate chars here because it's already token-truncated
+            sparse = await asyncio.to_thread(
+                text_to_sparse_vector, text, self.sparse_model_name, 20000 
+            )
             await self.qdrant.upsert(
                 collection_name=self.collection_name,
                 points=[
@@ -154,6 +162,71 @@ class DoctorVectorStore:
                 ],
             )
         logger.info("Upserted doctor vector %s", payload["doctor_id"])
+
+    async def upsert_doctors(self, profiles: list[dict[str, Any]]) -> None:
+        if not profiles:
+            return
+        await self.ensure_collection()
+        
+        valid_docs = []
+        inputs_for_dense = []
+        for profile in profiles:
+            text, payload = build_doctor_document(
+                profile,
+                token_budget=self._token_budget,
+                max_tokens=self.max_embedding_tokens,
+                embedding_model=self.embedding_model,
+                embedding_version=self.embedding_version,
+            )
+            if not payload["doctor_id"]:
+                continue
+            valid_docs.append((text, payload))
+            inputs_for_dense.append(text.replace("\n", " ").strip())
+
+        if not valid_docs:
+            return
+
+        # Batch embed dense
+        response = await self.openai.embeddings.create(
+            input=inputs_for_dense,
+            model=self.embedding_model,
+        )
+        dense_vectors = [d.embedding for d in response.data]
+
+        legacy = await self._read_legacy_flag()
+        points = []
+
+        for i, (text, payload) in enumerate(valid_docs):
+            pid = doctor_point_id(payload["doctor_id"])
+            dense = dense_vectors[i]
+            if legacy:
+                points.append(
+                    PointStruct(
+                        id=pid,
+                        vector=dense,
+                        payload=payload,
+                    )
+                )
+            else:
+                sparse = await asyncio.to_thread(
+                    text_to_sparse_vector, text, self.sparse_model_name, 20000 
+                )
+                points.append(
+                    PointStruct(
+                        id=pid,
+                        vector={
+                            self.dense_name: dense,
+                            self.sparse_name: sparse,
+                        },
+                        payload=payload,
+                    )
+                )
+
+        await self.qdrant.upsert(
+            collection_name=self.collection_name,
+            points=points,
+        )
+        logger.info("Upserted batch of %s doctors", len(points))
 
     async def delete_doctor(self, doctor_profile_id: str) -> None:
         await self.ensure_collection()
@@ -217,7 +290,9 @@ class DoctorVectorStore:
             )
             return self._payload_hits(hits), False, legacy
 
-        sparse = text_to_sparse_vector(query_text, self.sparse_model_name)
+        sparse = await asyncio.to_thread(
+            text_to_sparse_vector, query_text, self.sparse_model_name, self.max_embedding_chars
+        )
         prefetch_limit = max(limit, self.prefetch_limit)
         res = await self.qdrant.query_points(
             collection_name=self.collection_name,

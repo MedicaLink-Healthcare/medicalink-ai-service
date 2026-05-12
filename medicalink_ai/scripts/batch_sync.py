@@ -14,6 +14,7 @@ from typing import Any
 import httpx
 from openai import AsyncOpenAI
 from qdrant_client import AsyncQdrantClient
+from tqdm import tqdm
 
 from medicalink_ai.config import get_settings
 from medicalink_ai.vector_store import DoctorVectorStore
@@ -61,6 +62,8 @@ async def main() -> None:
         collection_name=s.qdrant_collection_name,
         embedding_model=s.openai_embedding_model,
         openai_api_key=s.openai_api_key,
+        embedding_version=s.embedding_version,
+        max_embedding_tokens=s.max_embedding_tokens,
         hybrid_enabled=s.rag_hybrid_enabled,
         dense_name=s.dense_vector_name,
         sparse_name=s.sparse_vector_name,
@@ -72,11 +75,17 @@ async def main() -> None:
     doctors = await fetch_all_public_doctors(s.api_gateway_base_url)
     logger.info("Total doctors from API: %s", len(doctors))
 
+    # Chuẩn bị dữ liệu
     for d in doctors:
-        prof = dict(d)
-        if "isActive" not in prof:
-            prof["isActive"] = True
-        await store.upsert_doctor(prof)
+        if "isActive" not in d:
+            d["isActive"] = True
+
+    # Batching (ví dụ: batch_size = 20)
+    batch_size = 20
+    batches = [doctors[i:i + batch_size] for i in range(0, len(doctors), batch_size)]
+
+    for batch in tqdm(batches, desc="Upserting to Qdrant", unit="batch"):
+        await store.upsert_doctors(batch)
 
     logger.info("Batch sync done.")
 
