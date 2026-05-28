@@ -42,6 +42,7 @@ class DoctorRagService:
         top_k: int,
         *,
         specialty_ids: list[str] | None = None,
+        extracted_symptoms: list[str] | None = None,
     ) -> dict[str, Any]:
         timer = StepTimer()
         
@@ -73,8 +74,14 @@ class DoctorRagService:
         prov = (self.settings.llm_provider or "openai").strip().lower()
         spec_filter = specialty_ids or None
 
+        # Determine the query string for vector search
+        search_query = symptoms
+        if extracted_symptoms:
+            search_query = "Triệu chứng: " + ", ".join(extracted_symptoms)
+            logger.info("Using compressed symptoms for search: %s", search_query)
+
         candidates, hybrid_used, legacy_col = await self.store.search_active(
-            symptoms,
+            search_query,
             limit=retrieve_limit,
             filter_specialty_ids=spec_filter,
         )
@@ -125,6 +132,9 @@ class DoctorRagService:
                         "doctor_id": c.get("doctor_id"),
                         "full_name": c.get("full_name"),
                         "specialties": c.get("specialties_label"),
+                        "experience_years": c.get("experience_years"),
+                        "education": c.get("education"),
+                        "procedures": c.get("procedures"),
                         "score": c.get("score"),
                     },
                     ensure_ascii=False,
@@ -132,7 +142,7 @@ class DoctorRagService:
             )
         context_block = "\n".join(ctx_lines)
 
-        user_msg = f"Triệu chứng / mô tả của bệnh nhân:\n{symptoms}\n\nNgữ cảnh bác sĩ:\n{context_block}\n\nChọn tối đa {top_k} bác sĩ, xếp theo độ phù hợp."
+        user_msg = f"Triệu chứng / mô tả của bệnh nhân:\n{symptoms}\n\nNgữ cảnh bác sĩ:\n{context_block}\n\nChọn tối đa {top_k} bác sĩ phù hợp nhất dựa trên chuyên môn, kinh nghiệm, đào tạo, và dịch vụ thủ thuật họ cung cấp. Hãy đưa ra lý do khách quan."
 
         temp = float(self.settings.rag_llm_temperature)
         if prov == "gemini":

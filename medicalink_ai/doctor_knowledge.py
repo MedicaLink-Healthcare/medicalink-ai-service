@@ -66,32 +66,27 @@ def build_doctor_document(
     if isinstance(position, str):
         position = [position]
     intro = str(profile.get("introduction") or "").strip()
-    research = str(profile.get("research") or "").strip()
 
     specs = _specialties_text(profile.get("specialties"))
     locs = _locations_text(profile.get("workLocations"))
 
     text_parts = [
         f"Bác sĩ: {full_name}" if full_name else "Bác sĩ: (chưa rõ tên)",
-        f"Mã hồ sơ (doctor profile id): {doctor_id}" if doctor_id else None,
-        f"Học vị / bằng cấp: {degree}" if degree else None,
-        _join_lines("Chức danh / vai trò", position if isinstance(position, list) else []),
         f"Chuyên khoa: {specs}" if specs else None,
-        f"Địa điểm làm việc: {locs}" if locs else None,
-        _join_lines("Quá trình đào tạo", profile.get("trainingProcess")),
-        _join_lines("Kinh nghiệm", profile.get("experience")),
-        f"Giới thiệu: {intro}" if intro else None,
-        f"Nghiên cứu: {research}" if research else None,
-        _join_lines("Hội viên", profile.get("memberships")),
-        _join_lines("Giải thưởng", profile.get("awards")),
+        _join_lines("Điều kiện bệnh lý (Conditions)", profile.get("conditions")),
+        _join_lines("Triệu chứng (Symptoms)", profile.get("symptoms")),
+        _join_lines("Chuyên môn (Expertise)", profile.get("expertise")),
+        _join_lines("Thủ thuật/Phẫu thuật (Procedures)", profile.get("procedures")),
+        _join_lines("Nhóm bệnh nhân (Patient Groups)", profile.get("patientGroups")),
     ]
     text = "\n".join(p for p in text_parts if p)
     text = token_budget.token_aware_truncate(text, max_tokens)
 
-    specialty_ids: list[str] = []
-    for s in profile.get("specialties") or []:
-        if isinstance(s, dict) and s.get("id") is not None:
-            specialty_ids.append(str(s["id"]))
+    specialty_ids: list[str] = profile.get("specialtyIds") or []
+    if not specialty_ids:
+        for s in profile.get("specialties") or []:
+            if isinstance(s, dict) and s.get("id") is not None:
+                specialty_ids.append(str(s["id"]))
 
     location_ids: list[str] = []
     for loc in profile.get("workLocations") or []:
@@ -107,6 +102,9 @@ def build_doctor_document(
         "specialties_label": specs,
         "location_ids": location_ids,
         "introduction_text": intro,
+        "experience_years": profile.get("experienceYears"),
+        "education": profile.get("education") or [],
+        "procedures": profile.get("procedures") or [],
         "source_json": json.dumps(profile, ensure_ascii=False, default=str)[:8000],
         "embedding_model": embedding_model,
         "embedding_version": embedding_version,

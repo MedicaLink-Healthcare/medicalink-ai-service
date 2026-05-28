@@ -44,6 +44,7 @@ class DoctorVectorStore:
     sparse_name: str = "lexical"
     sparse_model_name: str = "Qdrant/bm25"
     prefetch_limit: int = 40
+    max_embedding_chars: int = 20000
 
     _legacy_single_vector: bool | None = field(init=False, default=None)
     _token_budget: TokenBudgetManager = field(init=False)

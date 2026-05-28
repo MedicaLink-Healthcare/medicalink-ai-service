@@ -145,6 +145,9 @@ async def run_worker(settings: Settings | None = None) -> None:
                                     {
                                         "id": str(x["id"]).strip(),
                                         "name": str(x.get("name") or "").strip(),
+                                        "aliases": x.get("aliases") or [],
+                                        "common_symptoms": x.get("commonSymptoms") or x.get("common_symptoms") or [],
+                                        "keywords": x.get("keywords") or [],
                                     }
                                 )
                     if len(symptoms_s) < 8 or not catalog:
@@ -204,6 +207,12 @@ async def run_worker(settings: Settings | None = None) -> None:
                     ]
                     if not spec_ids:
                         spec_ids = None
+                        
+                raw_ext_sym = data.get("extractedSymptoms") or data.get("extracted_symptoms")
+                extracted_symptoms: list[str] | None = None
+                if isinstance(raw_ext_sym, list) and raw_ext_sym:
+                    extracted_symptoms = [str(x).strip() for x in raw_ext_sym if x]
+
                 if not symptoms:
                     await _nest_rpc_reply(
                         ch_rpc,
@@ -218,7 +227,12 @@ async def run_worker(settings: Settings | None = None) -> None:
                         },
                     )
                     return
-                result = await rag.recommend(symptoms, top_k, specialty_ids=spec_ids)
+                result = await rag.recommend(
+                    symptoms, 
+                    top_k, 
+                    specialty_ids=spec_ids,
+                    extracted_symptoms=extracted_symptoms
+                )
                 await _nest_rpc_reply(
                     ch_rpc,
                     reply_to,

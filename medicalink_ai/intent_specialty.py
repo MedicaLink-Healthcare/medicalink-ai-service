@@ -13,41 +13,28 @@ from medicalink_ai.gemini_llm import generate_json_with_gemini
 
 logger = logging.getLogger(__name__)
 
-SYSTEM = """You classify the patient's Vietnamese description into medical specialties.
-Only use ids that appear in the provided list. Never invent ids.
-If the case is vague or could belong to very different departments, return an empty specialty_ids array.
-Return a single JSON object:
-{"specialty_ids":["id1",...], "note":"1–2 short Vietnamese sentences for the patient"}
-- At most 4 ids, most likely matches first.
+SYSTEM = """You are a medical natural language parser. Your task is to extract medical symptoms and keywords from the patient's Vietnamese description.
+Return a single JSON object with this exact structure:
+{"symptoms":["triệu chứng 1","triệu chứng 2",...], "note":"1–2 short friendly Vietnamese sentences for the patient"}
+- Do NOT invent symptoms that are not explicitly or implicitly mentioned.
+- Keep symptoms concise (1-3 words usually).
 """
 
 
 async def suggest_specialties_from_catalog(
     *,
     symptoms: str,
-    catalog: list[dict[str, str]],
+    catalog: list[dict[str, Any]],
     settings: Settings,
     openai: AsyncOpenAI,
 ) -> dict[str, Any]:
-    allowed = {str(x.get("id", "")).strip() for x in catalog if x.get("id")}
-    allowed.discard("")
-    if not allowed:
+    if not catalog:
         return {"specialty_ids": [], "note": "No specialties in catalog."}
 
-    lines: list[str] = []
-    for x in catalog[:120]:
-        i = str(x.get("id", "")).strip()
-        n = str(x.get("name", "")).strip()
-        if i and n:
-            lines.append(json.dumps({"id": i, "name": n}, ensure_ascii=False))
-    user_msg = (
-        f"Patient description:\n{symptoms.strip()}\n\n"
-        f"Specialties (choose ids only from this list):\n"
-        + "\n".join(lines)
-    )
+    user_msg = f"Patient description:\n{symptoms.strip()}"
 
     prov = (settings.llm_provider or "openai").strip().lower()
-    temp = float(settings.rag_llm_temperature)
+    temp = 0.0 # Force deterministic extraction
     try:
         if prov == "gemini":
             raw = await generate_json_with_gemini(
@@ -71,30 +58,54 @@ async def suggest_specialties_from_catalog(
             raw = completion.choices[0].message.content or "{}"
         parsed = json.loads(raw)
     except Exception as e:
-        logger.warning("specialty suggestion failed: %s", e)
+        logger.warning("Symptom extraction failed: %s", e)
         return {
             "specialty_ids": [],
             "note": "Could not classify automatically; please select specialties yourself.",
         }
 
-    if not isinstance(parsed, dict):
-        return {"specialty_ids": [], "note": ""}
-
-    raw_ids = parsed.get("specialty_ids")
-    out_ids: list[str] = []
-    if isinstance(raw_ids, list):
-        for x in raw_ids[:6]:
-            sid = str(x).strip()
-            if sid in allowed and sid not in out_ids:
-                out_ids.append(sid)
-    out_ids = out_ids[:4]
+    extracted_symptoms = parsed.get("symptoms", [])
+    if not isinstance(extracted_symptoms, list):
+        extracted_symptoms = []
+    extracted_symptoms = [str(x).lower().strip() for x in extracted_symptoms if str(x).strip()]
 
     note = str(parsed.get("note") or "").strip()
     if not note:
-        note = (
-            "Suggested specialties based on your description."
-            if out_ids
-            else "Consider choosing a specialty manually."
-        )
+        note = "Dưới đây là các bác sĩ phù hợp với triệu chứng của bạn."
 
-    return {"specialty_ids": out_ids, "note": note}
+    # System Router: Keyword Match
+    scores: list[tuple[str, int]] = []
+    
+    for spec in catalog:
+        sid = str(spec.get("id", "")).strip()
+        if not sid:
+            continue
+            
+        score = 0
+        search_corpus = [str(spec.get("name", "")).lower()]
+        for arr_key in ["aliases", "common_symptoms", "keywords"]:
+            arr = spec.get(arr_key)
+            if isinstance(arr, list):
+                search_corpus.extend([str(x).lower() for x in arr])
+                
+        # Count matches
+        for sym in extracted_symptoms:
+            for corpus_item in search_corpus:
+                if sym in corpus_item or corpus_item in sym:
+                    score += 1
+                    
+        if score > 0:
+            scores.append((sid, score))
+            
+    # Sort by score descending
+    scores.sort(key=lambda x: x[1], reverse=True)
+    out_ids = [x[0] for x in scores[:4]]
+
+    if not out_ids:
+        note = "Không tìm thấy chuyên khoa khớp chính xác, gợi ý bác sĩ tổng quát hoặc bạn tự chọn chuyên khoa."
+
+    return {
+        "specialty_ids": out_ids, 
+        "note": note,
+        "extracted_symptoms": extracted_symptoms
+    }
