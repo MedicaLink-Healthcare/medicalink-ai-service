@@ -61,14 +61,14 @@ class SemanticCacheService:
             if not vector:
                 return None
 
-            results = await self.qdrant.search(
+            response = await self.qdrant.query_points(
                 collection_name=self.collection_name,
-                query_vector=vector,
+                query=vector,
                 limit=1,
                 score_threshold=self.threshold,
             )
-            if results:
-                hit: ScoredPoint = results[0]
+            if response.points:
+                hit: ScoredPoint = response.points[0]
                 logger.info(f"Semantic cache HIT for query '{query}' (score: {hit.score:.4f})")
                 payload = hit.payload or {}
                 result_str = str(payload.get("result_json") or "")
