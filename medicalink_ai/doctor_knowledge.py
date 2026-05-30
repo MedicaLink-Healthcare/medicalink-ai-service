@@ -101,7 +101,7 @@ def build_doctor_document(
         "specialty_ids": specialty_ids,
         "specialties_label": specs,
         "location_ids": location_ids,
-        "introduction_text": intro,
+        "introduction": intro,
         "experience_years": profile.get("experienceYears"),
         "education": profile.get("education") or [],
         "procedures": profile.get("procedures") or [],
