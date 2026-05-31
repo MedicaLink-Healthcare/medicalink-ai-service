@@ -16,10 +16,18 @@ logger = logging.getLogger(__name__)
 SYSTEM = """You are a medical natural language parser. Your task is to extract medical symptoms and keywords from the patient's Vietnamese description.
 Return a single JSON object with this exact structure:
 {"symptoms":["triệu chứng 1","triệu chứng 2",...], "note":"1–2 short friendly Vietnamese sentences for the patient"}
-- Do NOT invent symptoms that are not explicitly or implicitly mentioned.
+- Do NOT invent symptoms that are not explicitly or implicitly mentioned, EXCEPT for the generic rule below.
 - Keep symptoms concise (1-3 words usually).
-"""
 
+CRITICAL RULE FOR GENERIC SYMPTOMS:
+If the patient's symptoms are highly generic, ambiguous, or common (e.g., "đau đầu", "mệt mỏi", "sốt", "đau bụng", "khó thở") WITHOUT any specific organ context or severe conditions, you MUST append the exact strings "đau ốm thông thường" and "khám tổng quát" to the symptoms array. This ensures the system routes them to General Medicine / Family Doctor.
+
+If the symptoms are highly specific (e.g., "suy giảm trí nhớ", "ra máu âm đạo", "tiểu buốt"), DO NOT add the generic strings.
+
+Example:
+Input: "Mấy hôm nay em đau đầu quá, k biết phải làm sao?"
+Output: {"symptoms": ["đau đầu", "đau ốm thông thường", "khám tổng quát"], "note": "Chào bạn, triệu chứng này khá phổ biến, bạn nên khám bác sĩ gia đình nhé."}
+"""
 
 async def suggest_specialties_from_catalog(
     *,
@@ -99,7 +107,13 @@ async def suggest_specialties_from_catalog(
             
     # Sort by score descending
     scores.sort(key=lambda x: x[1], reverse=True)
-    out_ids = [x[0] for x in scores[:4]]
+    
+    # Thresholding: take all specialties with score >= 0.65 of max_score, max 5 items
+    out_ids = []
+    if scores:
+        max_score = scores[0][1]
+        threshold = max(1, max_score * 0.65)
+        out_ids = [x[0] for x in scores if x[1] >= threshold][:5]
 
     if not out_ids:
         note = "Không tìm thấy chuyên khoa khớp chính xác, gợi ý bác sĩ tổng quát hoặc bạn tự chọn chuyên khoa."
