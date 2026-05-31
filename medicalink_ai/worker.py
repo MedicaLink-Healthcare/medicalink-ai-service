@@ -14,6 +14,7 @@ from medicalink_ai.intent_specialty import suggest_specialties_from_catalog
 from medicalink_ai.rag import DoctorRagService
 from medicalink_ai.semantic_cache import SemanticCacheService
 from medicalink_ai.vector_store import DoctorVectorStore
+from medicalink_ai.vector_store_specialty import SpecialtyVectorStore
 
 logging.basicConfig(
     level=logging.INFO,
@@ -91,6 +92,13 @@ async def run_worker(settings: Settings | None = None) -> None:
         settings=s,
         semantic_cache=semantic_cache,
     )
+    
+    specialty_store = SpecialtyVectorStore(
+        qdrant=qdrant,
+        openai=openai_client,
+        collection_name="specialties",
+        embedding_model=s.openai_embedding_model,
+    )
 
     connection = await aio_pika.connect_robust(s.rabbitmq_url)
 
@@ -112,6 +120,7 @@ async def run_worker(settings: Settings | None = None) -> None:
         await ev_queue.bind(topic, routing_key=key)
 
     await store.ensure_collection()
+    await specialty_store.ensure_collection()
     if semantic_cache:
         await semantic_cache.ensure_collection()
     logger.info(
@@ -169,6 +178,7 @@ async def run_worker(settings: Settings | None = None) -> None:
                         catalog=catalog,
                         settings=s,
                         openai=openai_client,
+                        specialty_store=specialty_store,
                     )
                     await _nest_rpc_reply(
                         ch_rpc,

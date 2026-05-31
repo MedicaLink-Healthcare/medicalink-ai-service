@@ -282,13 +282,14 @@ class DoctorVectorStore:
         vector = await self.embed_text(query_text)
 
         if legacy or not self.hybrid_enabled:
-            hits = await self.qdrant.search(
+            res = await self.qdrant.query_points(
                 collection_name=self.collection_name,
-                query_vector=vector,
+                query=vector,
                 query_filter=flt,
                 limit=limit,
                 with_payload=True,
             )
+            hits = res.points or []
             return self._payload_hits(hits), False, legacy
 
         sparse = await asyncio.to_thread(

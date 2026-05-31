@@ -10,6 +10,7 @@ from openai import AsyncOpenAI
 
 from medicalink_ai.config import Settings
 from medicalink_ai.gemini_llm import generate_json_with_gemini
+from medicalink_ai.vector_store_specialty import SpecialtyVectorStore
 
 logger = logging.getLogger(__name__)
 
@@ -35,6 +36,7 @@ async def suggest_specialties_from_catalog(
     catalog: list[dict[str, Any]],
     settings: Settings,
     openai: AsyncOpenAI,
+    specialty_store: SpecialtyVectorStore | None = None,
 ) -> dict[str, Any]:
     if not catalog:
         return {"specialty_ids": [], "note": "No specialties in catalog."}
@@ -81,39 +83,16 @@ async def suggest_specialties_from_catalog(
     if not note:
         note = "Dưới đây là các bác sĩ phù hợp với triệu chứng của bạn."
 
-    # System Router: Keyword Match
-    scores: list[tuple[str, int]] = []
-    
-    for spec in catalog:
-        sid = str(spec.get("id", "")).strip()
-        if not sid:
-            continue
-            
-        score = 0
-        search_corpus = [str(spec.get("name", "")).lower()]
-        for arr_key in ["aliases", "common_symptoms", "keywords"]:
-            arr = spec.get(arr_key)
-            if isinstance(arr, list):
-                search_corpus.extend([str(x).lower() for x in arr])
-                
-        # Count matches
-        for sym in extracted_symptoms:
-            for corpus_item in search_corpus:
-                if sym in corpus_item or corpus_item in sym:
-                    score += 1
-                    
-        if score > 0:
-            scores.append((sid, score))
-            
-    # Sort by score descending
-    scores.sort(key=lambda x: x[1], reverse=True)
-    
-    # Thresholding: take all specialties with score >= 0.65 of max_score, max 5 items
+    # System Router: Semantic Vector Routing
     out_ids = []
-    if scores:
-        max_score = scores[0][1]
-        threshold = max(1, max_score * 0.65)
-        out_ids = [x[0] for x in scores if x[1] >= threshold][:5]
+    if specialty_store and extracted_symptoms:
+        query_text = ", ".join(extracted_symptoms)
+        try:
+            hits = await specialty_store.search_specialties(query_symptoms=query_text, limit=5)
+            if hits:
+                out_ids = [hit["id"] for hit in hits if hit.get("id")]
+        except Exception as e:
+            logger.error("Semantic search failed, fallback to none: %s", e)
 
     if not out_ids:
         note = "Không tìm thấy chuyên khoa khớp chính xác, gợi ý bác sĩ tổng quát hoặc bạn tự chọn chuyên khoa."
