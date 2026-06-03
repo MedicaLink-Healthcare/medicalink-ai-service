@@ -98,7 +98,6 @@ __pycache__/
 .mypy_cache/
 
 # Python AI service — log đánh giá & cache rerank
-data/
 .cache/
 
 # Documentation
