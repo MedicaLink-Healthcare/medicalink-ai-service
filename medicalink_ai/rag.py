@@ -43,8 +43,12 @@ class DoctorRagService:
         *,
         specialty_ids: list[str] | None = None,
         extracted_symptoms: list[str] | None = None,
+        cqu_data: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         timer = StepTimer()
+        
+        if cqu_data is None:
+            cqu_data = {}
         
         # 1. Semantic Cache check
         if self.settings.semantic_cache_enabled and self.semantic_cache:
@@ -80,11 +84,46 @@ class DoctorRagService:
             search_query = "Triệu chứng: " + ", ".join(extracted_symptoms)
             logger.info("Using compressed symptoms for search: %s", search_query)
 
-        candidates, hybrid_used, legacy_col = await self.store.search_active(
-            search_query,
-            limit=retrieve_limit,
-            filter_specialty_ids=spec_filter,
-        )
+        import asyncio
+        candidates = []
+        hybrid_used = False
+        legacy_col = False
+        
+        if spec_filter and len(spec_filter) > 0:
+            per_spec_limit = max(10, retrieve_limit // len(spec_filter) + 5)
+            results = []
+            for sp_id in spec_filter:
+                try:
+                    cands, _, _ = await self.store.search_active(
+                        search_query,
+                        limit=per_spec_limit,
+                        filter_specialty_ids=[sp_id]
+                    )
+                    results.append((cands, False, False))
+                except Exception as e:
+                    logger.warning(f"Error searching specialty {sp_id}: {e}")
+                    results.append(([], False, False))
+            
+            seen_docs = set()
+            for i, (cands, is_hybrid, is_legacy) in enumerate(results):
+                hybrid_used = hybrid_used or is_hybrid
+                legacy_col = legacy_col or is_legacy
+                
+                for c in cands:
+                    doc_id = c.get("doctor_id")
+                    if doc_id not in seen_docs:
+                        seen_docs.add(doc_id)
+                        c["intent_rank"] = i
+                        candidates.append(c)
+                        
+            candidates.sort(key=lambda x: x.get("score", 0), reverse=True)
+            candidates = candidates[:retrieve_limit]
+        else:
+            candidates, hybrid_used, legacy_col = await self.store.search_active(
+                search_query,
+                limit=retrieve_limit,
+                filter_specialty_ids=spec_filter,
+            )
         if not candidates:
             out = {
                 "recommendations": [],
@@ -119,6 +158,8 @@ class DoctorRagService:
             flashrank_model=self.settings.flashrank_model,
             flashrank_cache_dir=self.settings.flashrank_cache_dir or None,
             flashrank_pool=int(self.settings.rag_rerank_pool),
+            cqu_data=cqu_data,
+            settings=self.settings,
         )
 
         ctx_max = max(5, int(self.settings.retrieval_llm_context_max))

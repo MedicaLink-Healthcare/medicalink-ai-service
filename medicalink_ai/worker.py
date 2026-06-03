@@ -222,6 +222,8 @@ async def run_worker(settings: Settings | None = None) -> None:
                 extracted_symptoms: list[str] | None = None
                 if isinstance(raw_ext_sym, list) and raw_ext_sym:
                     extracted_symptoms = [str(x).strip() for x in raw_ext_sym if x]
+                
+                cqu_data = data.get("cquData") or data.get("cqu_data") or {}
 
                 if not symptoms:
                     await _nest_rpc_reply(
@@ -241,7 +243,8 @@ async def run_worker(settings: Settings | None = None) -> None:
                     symptoms, 
                     top_k, 
                     specialty_ids=spec_ids,
-                    extracted_symptoms=extracted_symptoms
+                    extracted_symptoms=extracted_symptoms,
+                    cqu_data=cqu_data
                 )
                 await _nest_rpc_reply(
                     ch_rpc,

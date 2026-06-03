@@ -63,6 +63,13 @@ class Settings(BaseSettings):
     flashrank_model: str = "ms-marco-MiniLM-L-12-v2"
     flashrank_cache_dir: str = ".cache/flashrank"
     rag_rerank_pool: int = 36
+    
+    # --- Multi-factor Ranking Weights ---
+    ranking_weight_semantic: float = 0.50
+    ranking_weight_lexical: float = 0.10
+    ranking_weight_experience: float = 0.15
+    ranking_weight_rating: float = 0.15
+    ranking_weight_demographic: float = 0.10
 
     # --- Eval Log ---
     rag_eval_log_path: str = ""
