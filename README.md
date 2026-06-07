@@ -9,6 +9,10 @@ Worker Python xử lý **gợi ý bác sĩ (RAG)**: nhận RPC qua **RabbitMQ**,
 - **Vector store**: Qdrant (tùy chọn **hybrid** dense OpenAI + sparse BM25/FastEmbed, RRF + rerank).
 - **Batch**: script kéo toàn bộ `GET /api/doctors/profile/public` rồi `upsert` vào Qdrant (không cần RabbitMQ).
 
+## Tài liệu Kiến trúc & Flow Hệ thống (Quan trọng)
+- 📐 **Kiến trúc tổng thể & Sơ đồ luồng (English)**: [`docs/RAG_ARCHITECTURE.md`](./docs/RAG_ARCHITECTURE.md)
+- 🧠 **Giải thích chi tiết Flow & Tiêu chí lựa chọn AI (Tiếng Việt)**: [`docs/AI_RAG_WORKFLOW_EXPLAINED.md`](./docs/AI_RAG_WORKFLOW_EXPLAINED.md)
+
 ## Yêu cầu
 
 - Python **3.11+**
