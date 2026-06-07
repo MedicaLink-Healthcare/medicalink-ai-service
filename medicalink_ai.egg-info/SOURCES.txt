@@ -5,11 +5,15 @@ medicalink_ai/config.py
 medicalink_ai/doctor_knowledge.py
 medicalink_ai/eval_log.py
 medicalink_ai/gemini_llm.py
+medicalink_ai/intent_specialty.py
 medicalink_ai/qdrant_schema.py
 medicalink_ai/rag.py
 medicalink_ai/rerank.py
+medicalink_ai/semantic_cache.py
 medicalink_ai/sparse_encoder.py
+medicalink_ai/token_budget.py
 medicalink_ai/vector_store.py
+medicalink_ai/vector_store_specialty.py
 medicalink_ai/worker.py
 medicalink_ai.egg-info/PKG-INFO
 medicalink_ai.egg-info/SOURCES.txt
@@ -18,3 +22,5 @@ medicalink_ai.egg-info/entry_points.txt
 medicalink_ai.egg-info/top_level.txt
 medicalink_ai/scripts/__init__.py
 medicalink_ai/scripts/batch_sync.py
+medicalink_ai/scripts/evaluate_rag.py
+medicalink_ai/scripts/sync_specialties_qdrant.py

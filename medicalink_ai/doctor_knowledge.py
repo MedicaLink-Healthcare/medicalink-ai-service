@@ -61,7 +61,6 @@ def build_doctor_document(
     """
     doctor_id = str(profile.get("id") or "")
     full_name = str(profile.get("fullName") or "").strip()
-    degree = str(profile.get("degree") or "").strip()
     position = profile.get("position") or []
     if isinstance(position, str):
         position = [position]
