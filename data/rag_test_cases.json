@@ -1,0 +1,122 @@
+{
+  "Nội tổng quát": {
+    "specialty_id": "cmnde90369e8b17431587bedd",
+    "cases": [
+      {"query": "Dạo này tôi hay bị mệt mỏi vô cớ, sụt cân nhanh dù ăn uống bình thường", "neg": []},
+      {"query": "Đo huyết áp lúc cao lúc thấp, thỉnh thoảng nhức đầu nhẹ", "neg": []},
+      {"query": "Muốn đi khám sức khỏe định kỳ do dạo này người uể oải", "neg": []}
+    ]
+  },
+  "Tim mạch": {
+    "specialty_id": "cmn305ee71e46d24f2396fe68",
+    "cases": [
+      {"query": "Đau thắt ngực trái, mệt mỏi khi leo cầu thang, không ho", "neg": ["không ho"]},
+      {"query": "Hồi hộp đánh trống ngực, nhịp tim nhanh lúc nghỉ ngơi", "neg": []},
+      {"query": "Thường xuyên hoa mắt khi đứng lên ngồi xuống, có tiền sử tăng huyết áp", "neg": []}
+    ]
+  },
+  "Thần kinh": {
+    "specialty_id": "cmne6870ce72d43457881a7dd",
+    "cases": [
+      {"query": "Hay bị đau nửa đầu bên phải, giật từng cơn, buồn nôn", "neg": []},
+      {"query": "Tay chân hay bị tê rần, đôi lúc run tay khi cầm nắm đồ vật", "neg": []},
+      {"query": "Mất ngủ kéo dài, trí nhớ giảm sút nghiêm trọng, hay quên", "neg": []}
+    ]
+  },
+  "Cơ xương khớp": {
+    "specialty_id": "cmn6f922b051e05454388c512",
+    "cases": [
+      {"query": "Đau nhức hai khớp gối khi đi lại nhiều, kêu lạo xạo", "neg": []},
+      {"query": "Sáng ngủ dậy hay bị cứng khớp bàn tay, đau buốt", "neg": []},
+      {"query": "Đau thắt lưng lan xuống chân trái, ngồi lâu rất buốt", "neg": []}
+    ]
+  },
+  "Tiết niệu": {
+    "specialty_id": "cmn0d8db982b8a74ee1808972",
+    "cases": [
+      {"query": "Đi tiểu buốt, dắt, nước tiểu có lẫn máu tươi", "neg": []},
+      {"query": "Đau quặn hông lưng phải, lan xuống bụng dưới", "neg": []},
+      {"query": "Tiểu đêm nhiều lần, cảm giác đi tiểu không hết bãi", "neg": []}
+    ]
+  },
+  "Răng Hàm Mặt": {
+    "specialty_id": "cmn60eafc3e66444b2a851b8d",
+    "cases": [
+      {"query": "Đau nhức răng hàm dưới, nướu sưng đỏ, nhai thức ăn rất buốt", "neg": []},
+      {"query": "Răng khôn mọc lệch đâm vào má, đau nhức liên tục", "neg": []},
+      {"query": "Chảy máu chân răng nhiều khi đánh răng, miệng có mùi hôi", "neg": []}
+    ]
+  },
+  "Tai Mũi Họng": {
+    "specialty_id": "cmn388a64a878494c57b1c0f2",
+    "cases": [
+      {"query": "Ngạt mũi kéo dài, chảy dịch vàng, đau nhức vùng trán", "neg": []},
+      {"query": "Đau họng, nuốt vướng, có đờm nhưng không sốt", "neg": ["không sốt"]},
+      {"query": "Ù tai, nghe kém, thỉnh thoảng chóng mặt", "neg": []}
+    ]
+  },
+  "Mắt": {
+    "specialty_id": "cmnd3d0cbae4b8e497c960246",
+    "cases": [
+      {"query": "Mắt nhìn mờ đi nhiều, cảm giác như có màn sương che trước mắt", "neg": []},
+      {"query": "Đỏ mắt, cộm ngứa, chảy nhiều nước mắt, ra gỉ mắt nhiều vào buổi sáng", "neg": []},
+      {"query": "Bị chói sáng, đau nhức hốc mắt, thị lực giảm nhanh", "neg": []}
+    ]
+  },
+  "Nhi khoa": {
+    "specialty_id": "cmnc6a6270904534d49a4c532",
+    "cases": [
+      {"query": "Bé 3 tuổi sốt cao 39 độ, ho đờm, bỏ bú", "neg": []},
+      {"query": "Trẻ đi ngoài phân lỏng, nôn trớ nhiều sau khi ăn", "neg": []},
+      {"query": "Bé có nhiều mẩn đỏ ở tay chân, miệng có vết loét", "neg": []}
+    ]
+  },
+  "Tiêu hóa - Gan mật": {
+    "specialty_id": "cmna8cf9e42b9c14beca968d2",
+    "cases": [
+      {"query": "Tôi hay bị ợ chua lúc rạng sáng nhưng không buồn nôn", "neg": ["không buồn nôn"]},
+      {"query": "Đau vùng dạ dày, uống thuốc dạ dày không đỡ, đi cầu phân đen", "neg": []},
+      {"query": "Bụng sôi ọt ọt liên tục, tiêu chảy ngày 3 lần, không sốt", "neg": ["không sốt"]}
+    ]
+  },
+  "Sản phụ khoa": {
+    "specialty_id": "cmn4132816e364b4603a2fed9",
+    "cases": [
+      {"query": "Rối loạn kinh nguyệt nhiều tháng nay, hay đau quặn bụng dưới", "neg": []},
+      {"query": "Trễ kinh 2 tuần, thử que 2 vạch, nay thấy ra ít máu", "neg": []},
+      {"query": "Ngứa rát vùng kín, ra khí hư có mùi hôi", "neg": []}
+    ]
+  },
+  "Hô hấp": {
+    "specialty_id": "cmn25b8987d232447e8bd9517",
+    "cases": [
+      {"query": "Khó thở khi nằm, ho có đờm xanh, có hút thuốc 10 năm", "neg": []},
+      {"query": "Sốt nhẹ về chiều, ho ra máu lượng ít, sụt cân", "neg": []},
+      {"query": "Thở khò khè, hay hụt hơi, đã từng bị lao phổi", "neg": []}
+    ]
+  },
+  "Ung bướu": {
+    "specialty_id": "cmn05e2799db9c54691854315",
+    "cases": [
+      {"query": "Sờ thấy cục cứng ở ngực trái, không đau nhưng phát triển nhanh", "neg": ["không đau"]},
+      {"query": "Nổi hạch ở cổ lâu ngày không xẹp, sụt cân nhanh", "neg": []},
+      {"query": "Cần tư vấn về phác đồ hóa trị cho K đại tràng giai đoạn 2", "neg": []}
+    ]
+  },
+  "Da liễu": {
+    "specialty_id": "cmn9a464d69a3c64f3f856cd8",
+    "cases": [
+      {"query": "Nổi mẩn ngứa khắp người sau khi ăn hải sản", "neg": []},
+      {"query": "Da bị tróc vảy trắng, ngứa ngáy dữ dội ở vùng khuỷu tay, đầu gối", "neg": []},
+      {"query": "Nhiều mụn bọc sưng đỏ ở mặt, để lại sẹo rỗ", "neg": []}
+    ]
+  },
+  "Nội tiết": {
+    "specialty_id": "cmn347714c1937b4ebd858bd6",
+    "cases": [
+      {"query": "Khát nước liên tục, đi tiểu nhiều, sụt cân dù ăn nhiều", "neg": []},
+      {"query": "Cổ to ra, hay run tay, nhịp tim nhanh, vã mồ hôi", "neg": []},
+      {"query": "Đang mang thai, xét nghiệm tiểu đường thai kỳ đường huyết cao", "neg": []}
+    ]
+  }
+}

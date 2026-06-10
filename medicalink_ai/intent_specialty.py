@@ -168,8 +168,17 @@ async def suggest_specialties_from_catalog(
         try:
             hits = await specialty_store.search_specialties(query_symptoms=query_text, query_priors=prior_text, limit=5)
             if hits:
-                out_ids = [hit["id"] for hit in hits if hit.get("id")]
                 confidence = hits[0].get("confidence_score", 0.0)
+                
+                # Filter hits to prevent returning irrelevant specialties
+                # Keep a hit if its score is within 15% of the top score, or it has a very high score (> 0.65)
+                valid_hits = []
+                for h in hits:
+                    score = h.get("confidence_score", 0.0)
+                    if score >= confidence * 0.85 or score > 0.65:
+                        valid_hits.append(h)
+                
+                out_ids = [hit["id"] for hit in valid_hits if hit.get("id")]
                 
                 # 4. Confidence Calibration & Fallback
                 if confidence < 0.35:
