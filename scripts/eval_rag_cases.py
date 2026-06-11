@@ -28,16 +28,24 @@ class Colors:
 API_URL_SUGGEST = "https://api.medicalink.online/api/ai/suggest-specialties"
 API_URL_RECOMMEND = "https://api.medicalink.online/api/ai/recommend-doctor"
 
-async def make_api_call(url, payload):
+async def make_api_call(url, payload, retries=3):
     loop = asyncio.get_event_loop()
-    try:
-        res = await loop.run_in_executor(None, lambda: requests.post(url, json=payload, timeout=60))
-        if res.status_code == 200:
-            return res.json()
-        return None
-    except Exception as e:
-        print(f"API Error: {e}")
-        return None
+    for attempt in range(retries):
+        try:
+            res = await loop.run_in_executor(None, lambda: requests.post(url, json=payload, timeout=60))
+            if res.status_code == 200:
+                return res.json()
+            elif res.status_code == 429: # Too Many Requests
+                print(f"   {Colors.YELLOW}⚠️ Rate limited (429). Retrying in {2 ** attempt}s...{Colors.RESET}")
+                await asyncio.sleep(2 ** attempt)
+                continue
+            else:
+                print(f"   {Colors.YELLOW}⚠️ API Error {res.status_code}: {res.text}. Retrying...{Colors.RESET}")
+                await asyncio.sleep(1)
+        except Exception as e:
+            print(f"   {Colors.YELLOW}⚠️ Exception: {e}. Retrying...{Colors.RESET}")
+            await asyncio.sleep(1)
+    return None
 
 # ==============================================================================
 # BỘ DỮ LIỆU KIỂM THỬ (TEST DATASET) 
