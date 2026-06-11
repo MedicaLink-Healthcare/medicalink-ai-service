@@ -240,25 +240,31 @@ class SpecialtyVectorStore:
 
         hits_dict = {}
         
-        # 1. Search Symptoms (Weight 0.75)
-        symptom_points = await perform_search(query_symptoms)
-        for h in symptom_points:
-            sid = h.payload.get("id")
-            if sid:
-                hits_dict[sid] = {"payload": h.payload, "score": float(h.score or 0) * 0.75}
-
-        # 2. Search Priors (Weight 0.25)
+        # 1. Search Symptoms (Weight 1.0)
+        symp_hits = await perform_search(query_symptoms)
+        
+        # 2. Search Priors (Weight 0.0)
         if query_priors.strip():
-            prior_points = await perform_search(query_priors)
-            for h in prior_points:
+            prior_hits = await perform_search(query_priors)
+            
+            hits_dict = {}
+            for h in symp_hits:
                 sid = h.payload.get("id")
                 if sid:
+                    hits_dict[sid] = {"payload": h.payload, "score": float(h.score or 0) * 1.0}
+            
+            if prior_hits:
+                for h in prior_hits:
+                    sid = h.payload.get("id")
                     if sid in hits_dict:
-                        hits_dict[sid]["score"] += float(h.score or 0) * 0.25
-                    else:
-                        hits_dict[sid] = {"payload": h.payload, "score": float(h.score or 0) * 0.25}
-            logger.info("[Specialty Retrieval] Weighted Fusion used (Symptoms 75%%, Priors 25%%).")
+                        # 0% influence for priors in retrieval to prevent LLM hallucination bias
+                        hits_dict[sid]["score"] += float(h.score or 0) * 0.0 
+            logger.info("[Specialty Retrieval] Symptoms 100% weight. Priors removed from retrieval influence.")
         else:
+            for h in symp_hits:
+                sid = h.payload.get("id")
+                if sid:
+                    hits_dict[sid] = {"payload": h.payload, "score": float(h.score or 0) * 1.0}
             logger.info("[Specialty Retrieval] Symptoms only used (no priors).")
 
         # 3. Sort by final score

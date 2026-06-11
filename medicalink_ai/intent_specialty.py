@@ -166,7 +166,8 @@ async def suggest_specialties_from_catalog(
         prior_text = ", ".join([str(x) for x in common_priors + dangerous_priors if str(x).strip()])
         
         try:
-            hits = await specialty_store.search_specialties(query_symptoms=query_text, query_priors=prior_text, limit=5)
+            # 0% Prior Influence: Completely rely on pure Symptom embedding for Retrieval (RAG-centric)
+            hits = await specialty_store.search_specialties(query_symptoms=query_text, query_priors="", limit=5)
             if hits:
                 confidence = hits[0].get("confidence_score", 0.0)
                 
