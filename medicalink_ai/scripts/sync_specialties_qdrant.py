@@ -16,18 +16,27 @@ from medicalink_ai.vector_store_specialty import SpecialtyVectorStore
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-async def fetch_all_specialties_from_file() -> list[dict[str, Any]]:
-    import json
-    from pathlib import Path
-    
-    file_path = Path(__file__).parent.parent.parent / "data" / "specialties_cleaned.json"
-    if not file_path.exists():
-        logger.error(f"Cannot find {file_path}")
-        return []
-        
-    with open(file_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-        return data.get("specialties", [])
+async def fetch_all_public_specialties(base_url: str) -> list[dict[str, Any]]:
+    out: list[dict[str, Any]] = []
+    page = 1
+    limit = 50
+    async with httpx.AsyncClient(timeout=60.0) as client:
+        while True:
+            url = f"{base_url.rstrip('/')}/api/specialties/public"
+            r = await client.get(url, params={"page": page, "limit": limit})
+            r.raise_for_status()
+            body = r.json()
+            chunk = body.get("data") or []
+            for item in chunk:
+                if isinstance(item, dict):
+                    out.append(item)
+            meta = body.get("meta") or {}
+            has_next = bool(meta.get("hasNext"))
+            logger.info("page %s: +%s specialties", page, len(chunk))
+            if not has_next or not chunk:
+                break
+            page += 1
+    return out
 
 async def main():
     settings = get_settings()
@@ -50,7 +59,7 @@ async def main():
         embedding_model=settings.openai_embedding_model,
     )
 
-    specialties = await fetch_all_specialties_from_file()
+    specialties = await fetch_all_public_specialties(settings.api_gateway_base_url)
 
     logger.info("Found %d specialties from API. Starting upsert to Qdrant...", len(specialties))
     await store.upsert_specialties(specialties)
