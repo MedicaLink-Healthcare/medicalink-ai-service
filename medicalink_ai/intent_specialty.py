@@ -208,7 +208,7 @@ async def suggest_specialties_from_catalog(
 
     # 4.5 Demographic & Domain Rule-based Overrides (Fixing Semantic Shortcomings)
     demo_lower = patient_demographic.lower()
-    query_lower = query.lower()
+    query_lower = symptoms.lower()
     
     nhi_khoa_id = next((c["id"] for c in catalog if "nhi" in c.get("name", "").lower()), None)
     san_phu_khoa_id = next((c["id"] for c in catalog if "sản" in c.get("name", "").lower() or "phụ khoa" in c.get("name", "").lower()), None)
