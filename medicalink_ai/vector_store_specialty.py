@@ -92,13 +92,23 @@ class SpecialtyVectorStore:
         name = str(spec.get("name") or "").strip()
         parts = [f"Chuyên khoa: {name}"]
         
-        for key, prefix in [("aliases", "Tên gọi khác: "), ("keywords", "Từ khóa: "), ("common_symptoms", "Triệu chứng thường gặp: ")]:
+        for key, prefix in [
+            ("aliases", "Tên gọi khác: "), 
+            ("keywords", "Từ khóa: "), 
+            ("common_symptoms", "Triệu chứng thường gặp: "),
+            ("common_conditions", "Bệnh lý thường gặp: "),
+            ("expertise", "Chuyên môn: ")
+        ]:
             arr = spec.get(key)
             if isinstance(arr, list) and arr:
                 clean_arr = [str(x).strip() for x in arr if str(x).strip()]
                 if clean_arr:
                     parts.append(prefix + ", ".join(clean_arr))
                     
+        desc = str(spec.get("description") or "").strip()
+        if desc:
+            parts.append(f"Mô tả: {desc}")
+            
         return "\n".join(parts)
 
     async def upsert_specialties(self, specialties: list[dict[str, Any]]) -> None:

@@ -171,12 +171,14 @@ async def suggest_specialties_from_catalog(
                 confidence = hits[0].get("confidence_score", 0.0)
                 
                 # Filter hits to prevent returning irrelevant specialties
-                # Keep a hit if its score is within 15% of the top score, or it has a very high score (> 0.65)
+                # Keep a hit if its score is within 30% of the top score, or it has a good score (> 0.60)
                 valid_hits = []
                 for h in hits:
                     score = h.get("confidence_score", 0.0)
-                    if score >= confidence * 0.85 or score > 0.65:
+                    if score >= confidence * 0.70 or score > 0.60:
                         valid_hits.append(h)
+                    if len(valid_hits) >= 3:
+                        break
                 
                 out_ids = [hit["id"] for hit in valid_hits if hit.get("id")]
                 

@@ -4,7 +4,19 @@
     "cases": [
       {"query": "Dạo này tôi hay bị mệt mỏi vô cớ, sụt cân nhanh dù ăn uống bình thường", "neg": []},
       {"query": "Đo huyết áp lúc cao lúc thấp, thỉnh thoảng nhức đầu nhẹ", "neg": []},
-      {"query": "Muốn đi khám sức khỏe định kỳ do dạo này người uể oải", "neg": []}
+      {"query": "Muốn đi khám sức khỏe định kỳ do dạo này người uể oải", "neg": []},
+      {"query": "Tôi bị sốt nhẹ về chiều kèm theo chán ăn đã 1 tuần nay", "neg": []},
+      {"query": "Hay bị chóng mặt mỗi khi đứng lên ngồi xuống, người mệt mỏi", "neg": []},
+      {"query": "Tự nhiên dạo này tôi thấy khát nước nhiều và đi tiểu liên tục", "neg": []},
+      {"query": "Cảm giác lạnh run dù trời không lạnh, mệt mỏi rã rời", "neg": []},
+      {"query": "Tôi muốn kiểm tra tổng quát mỡ máu và men gan vì dạo này hay nhậu", "neg": []},
+      {"query": "Tay chân hay bị bầm tím mà không rõ nguyên nhân va đập", "neg": []},
+      {"query": "Hay bị đổ mồ hôi trộm ban đêm, ngủ không sâu giấc", "neg": []},
+      {"query": "Lưng tôi hay bị nhức mỏi, kèm theo mệt mỏi cả ngày", "neg": []},
+      {"query": "Thường xuyên bị khô miệng và đắng miệng vào buổi sáng", "neg": []},
+      {"query": "Tôi thấy nhịp tim đập nhanh hồi hộp, muốn khám xem có sao không", "neg": []},
+      {"query": "Bố tôi 60 tuổi, muốn đăng ký gói khám tầm soát các bệnh mãn tính", "neg": []},
+      {"query": "Tôi cảm thấy khó thở nhẹ và tức ngực mỗi khi căng thẳng", "neg": []}
     ]
   },
   "Tim mạch": {
@@ -12,7 +24,19 @@
     "cases": [
       {"query": "Đau thắt ngực trái, mệt mỏi khi leo cầu thang, không ho", "neg": ["không ho"]},
       {"query": "Hồi hộp đánh trống ngực, nhịp tim nhanh lúc nghỉ ngơi", "neg": []},
-      {"query": "Thường xuyên hoa mắt khi đứng lên ngồi xuống, có tiền sử tăng huyết áp", "neg": []}
+      {"query": "Thường xuyên hoa mắt khi đứng lên ngồi xuống, có tiền sử tăng huyết áp", "neg": []},
+      {"query": "Tôi hay bị nặng ngực, thỉnh thoảng nhói lên từng cơn", "neg": []},
+      {"query": "Tự nhiên tim đập mạnh như muốn rớt ra ngoài, kèm vã mồ hôi lạnh", "neg": []},
+      {"query": "Chân tôi dạo này bị phù nề, ấn vào lõm, hay khó thở khi nằm", "neg": []},
+      {"query": "Đang uống thuốc huyết áp nhưng dạo này đo vẫn thấy 150/90", "neg": []},
+      {"query": "Ngực trái hay bị nhói đau lan ra cánh tay và sau lưng", "neg": []},
+      {"query": "Mỗi lần đi bộ nhanh là tôi thấy hụt hơi, ngực nặng đè nén", "neg": []},
+      {"query": "Tim đập bỏ nhịp, cảm giác hẫng một nhịp rồi lại đập bình thường", "neg": []},
+      {"query": "Sáng sớm thức dậy hay bị choáng váng, mắt tối sầm lại", "neg": []},
+      {"query": "Tôi bị hở van tim 2 lá nhẹ, nay muốn đi tái khám xem có tiến triển nặng không", "neg": []},
+      {"query": "Hay bị mệt mỏi, khó thở về đêm phải ngồi dậy mới thở được", "neg": []},
+      {"query": "Thỉnh thoảng có cảm giác đau ran ở vùng trước tim, lan lên cằm", "neg": []},
+      {"query": "Bà nội tôi bị suy tim, gần đây bà kêu hay bị mệt và ho khan", "neg": []}
     ]
   },
   "Thần kinh": {
@@ -20,7 +44,19 @@
     "cases": [
       {"query": "Hay bị đau nửa đầu bên phải, giật từng cơn, buồn nôn", "neg": []},
       {"query": "Tay chân hay bị tê rần, đôi lúc run tay khi cầm nắm đồ vật", "neg": []},
-      {"query": "Mất ngủ kéo dài, trí nhớ giảm sút nghiêm trọng, hay quên", "neg": []}
+      {"query": "Mất ngủ kéo dài, trí nhớ giảm sút nghiêm trọng, hay quên", "neg": []},
+      {"query": "Bị chóng mặt quay cuồng, thấy nhà cửa lộn nhào khi thay đổi tư thế", "neg": []},
+      {"query": "Cảm giác châm chích như kiến bò ở lòng bàn chân và các ngón tay", "neg": []},
+      {"query": "Đau đầu dữ dội vùng thái dương, uống thuốc giảm đau không bớt", "neg": []},
+      {"query": "Mặt tự nhiên bị giật nhẹ ở khóe mắt và mép miệng", "neg": []},
+      {"query": "Dạo này hay bị líu lưỡi, nói ngọng một lúc rồi hết", "neg": []},
+      {"query": "Thỉnh thoảng bị yếu nửa người bên trái, cầm đồ vật hay bị rơi", "neg": []},
+      {"query": "Khó đi vào giấc ngủ, trằn trọc cả đêm, sáng dậy người đờ đẫn", "neg": []},
+      {"query": "Ông tôi bị Parkinson, dạo này tay ông run nhiều hơn", "neg": []},
+      {"query": "Hay bị choáng váng, xây xẩm mặt mày, cảm giác đi không vững", "neg": []},
+      {"query": "Thường xuyên bị đau giật từ gáy lên đỉnh đầu", "neg": []},
+      {"query": "Tôi bị mất ngủ mãn tính, đã dùng nhiều loại thuốc thảo dược không ăn thua", "neg": []},
+      {"query": "Trí nhớ dạo này kém quá, đi chợ quên mua đồ hoài, có phải bị Alzheimer không", "neg": []}
     ]
   },
   "Cơ xương khớp": {
@@ -28,7 +64,19 @@
     "cases": [
       {"query": "Đau nhức hai khớp gối khi đi lại nhiều, kêu lạo xạo", "neg": []},
       {"query": "Sáng ngủ dậy hay bị cứng khớp bàn tay, đau buốt", "neg": []},
-      {"query": "Đau thắt lưng lan xuống chân trái, ngồi lâu rất buốt", "neg": []}
+      {"query": "Đau thắt lưng lan xuống chân trái, ngồi lâu rất buốt", "neg": []},
+      {"query": "Khớp ngón chân cái sưng tấy đỏ, đau nhức khủng khiếp sau khi ăn hải sản", "neg": []},
+      {"query": "Cổ tay bị sưng và đau khi cử động, nhất là lúc vặn vòi nước", "neg": []},
+      {"query": "Đau mỏi vai gáy kinh niên, cúi ngửa cổ rất khó khăn", "neg": []},
+      {"query": "Gót chân đau thấu xương mỗi khi bước xuống giường vào buổi sáng", "neg": []},
+      {"query": "Bị ngã chống tay xuống đất, giờ khuỷu tay sưng to và không gập lại được", "neg": []},
+      {"query": "Khớp háng bên phải đau nhói khi bước đi, nằm nghiêng cũng đau", "neg": []},
+      {"query": "Các khớp ngón tay bị sưng nề, biến dạng nhẹ, đau âm ỉ", "neg": []},
+      {"query": "Tôi bị thoái hóa cột sống cổ, dạo này đau lan ra hai bả vai", "neg": []},
+      {"query": "Đau nhức trong xương mỗi khi thời tiết thay đổi, không sốt", "neg": ["không sốt"]},
+      {"query": "Đầu gối hay bị sưng phù có dịch, đi lại thấy nặng nề", "neg": []},
+      {"query": "Đau ê ẩm dọc hai bắp chân về đêm, thỉnh thoảng bị chuột rút", "neg": []},
+      {"query": "Mẹ tôi bị loãng xương, nay đau cột sống thắt lưng không ngồi lâu được", "neg": []}
     ]
   },
   "Tiết niệu": {
@@ -36,7 +84,19 @@
     "cases": [
       {"query": "Đi tiểu buốt, dắt, nước tiểu có lẫn máu tươi", "neg": []},
       {"query": "Đau quặn hông lưng phải, lan xuống bụng dưới", "neg": []},
-      {"query": "Tiểu đêm nhiều lần, cảm giác đi tiểu không hết bãi", "neg": []}
+      {"query": "Tiểu đêm nhiều lần, cảm giác đi tiểu không hết bãi", "neg": []},
+      {"query": "Tôi bị tiểu rắt, cứ 15 phút lại buồn tiểu mà mỗi lần được rất ít", "neg": []},
+      {"query": "Nước tiểu đục, có mùi hôi nồng, thỉnh thoảng ớn lạnh", "neg": []},
+      {"query": "Nam giới 60 tuổi, đi tiểu phải rặn mạnh, tia nước yếu", "neg": []},
+      {"query": "Đau tức vùng bụng dưới, đi tiểu thấy rát ở đầu niệu đạo", "neg": []},
+      {"query": "Đau nhói vùng thắt lưng lan xuống háng, từng bị sỏi thận 2 năm trước", "neg": []},
+      {"query": "Nước tiểu có màu đỏ như nước rửa thịt, không đau bụng", "neg": ["không đau bụng"]},
+      {"query": "Tôi hay bị són tiểu khi ho hoặc hắt hơi mạnh", "neg": []},
+      {"query": "Đi tiểu ra cặn trắng lợn cợn, đôi lúc có cảm giác tắc nghẽn", "neg": []},
+      {"query": "Sưng đau vùng tinh hoàn bên trái, đi lại rất tức", "neg": []},
+      {"query": "Xét nghiệm siêu âm có sỏi niệu quản 6mm, cần tư vấn tán sỏi", "neg": []},
+      {"query": "Tôi hay bị tiểu buốt sau khi quan hệ tình dục", "neg": []},
+      {"query": "Bác sĩ trước chẩn đoán tôi bị phì đại tuyến tiền liệt, nay tiểu khó hơn", "neg": []}
     ]
   },
   "Răng Hàm Mặt": {
@@ -44,7 +104,19 @@
     "cases": [
       {"query": "Đau nhức răng hàm dưới, nướu sưng đỏ, nhai thức ăn rất buốt", "neg": []},
       {"query": "Răng khôn mọc lệch đâm vào má, đau nhức liên tục", "neg": []},
-      {"query": "Chảy máu chân răng nhiều khi đánh răng, miệng có mùi hôi", "neg": []}
+      {"query": "Chảy máu chân răng nhiều khi đánh răng, miệng có mùi hôi", "neg": []},
+      {"query": "Một chiếc răng cửa của tôi bị lung lay sau khi nhai phải sạn", "neg": []},
+      {"query": "Răng hàm số 6 bị vỡ một mảng lớn, ăn uống hay bị nhét thức ăn", "neg": []},
+      {"query": "Nướu răng bị tụt, uống nước đá là ê buốt tận óc", "neg": []},
+      {"query": "Khớp thái dương hàm hay kêu lục cục khi há miệng to", "neg": []},
+      {"query": "Sáng ngủ dậy hay bị mỏi hàm, có người bảo tôi hay nghiến răng lúc ngủ", "neg": []},
+      {"query": "Trám răng được 1 năm giờ chỗ trám bị đổi màu và hơi nhức", "neg": []},
+      {"query": "Miệng hay bị lở loét (nhiệt miệng) tái phát nhiều lần", "neg": []},
+      {"query": "Răng số 8 sưng mủ, há miệng ra rất đau", "neg": []},
+      {"query": "Tôi muốn tư vấn cấy ghép Implant cho 2 chiếc răng hàm bị mất lâu năm", "neg": []},
+      {"query": "Lợi bị sưng cục mủ có màu trắng, ấn vào chảy mủ", "neg": []},
+      {"query": "Bọc răng sứ được 2 năm giờ viền nướu bị đen và viêm đỏ", "neg": []},
+      {"query": "Con tôi 7 tuổi, răng cửa mọc lộn xộn, muốn khám niềng răng", "neg": []}
     ]
   },
   "Tai Mũi Họng": {
@@ -52,7 +124,19 @@
     "cases": [
       {"query": "Ngạt mũi kéo dài, chảy dịch vàng, đau nhức vùng trán", "neg": []},
       {"query": "Đau họng, nuốt vướng, có đờm nhưng không sốt", "neg": ["không sốt"]},
-      {"query": "Ù tai, nghe kém, thỉnh thoảng chóng mặt", "neg": []}
+      {"query": "Ù tai, nghe kém, thỉnh thoảng chóng mặt", "neg": []},
+      {"query": "Ho khan dai dẳng 3 tuần, cảm giác lúc nào cũng ngứa cổ họng", "neg": []},
+      {"query": "Chảy máu cam liên tục 2 ngày nay, mỗi lần 1 ít", "neg": []},
+      {"query": "Tôi bị mất khứu giác, ngửi mùi không thấy rõ, hay nghẹt mũi", "neg": []},
+      {"query": "Tai bên phải có dịch chảy ra mùi hôi, hơi đau tức", "neg": []},
+      {"query": "Hay bị hắt hơi liên tục vào buổi sáng, ngứa mũi, chảy nước mũi trong", "neg": []},
+      {"query": "Cảm giác có cục gì vướng ở cổ họng, khạc không ra nuốt không trôi", "neg": []},
+      {"query": "Trẻ nhỏ ngủ hay ngáy to, thở há miệng", "neg": []},
+      {"query": "Đau rát họng dữ dội, soi gương thấy có mủ trắng ở amidan", "neg": []},
+      {"query": "Bị ù tai như tiếng ve kêu liên tục trong đầu, rất khó chịu", "neg": []},
+      {"query": "Giọng bị khàn đặc, thỉnh thoảng mất giọng nói, đã 1 tuần rồi", "neg": []},
+      {"query": "Hay bị đau nửa mặt quanh mũi, cúi đầu xuống là ê buốt", "neg": []},
+      {"query": "Tôi muốn cắt amidan vì năm nay viêm sưng 5-6 lần rồi", "neg": []}
     ]
   },
   "Mắt": {
@@ -60,7 +144,19 @@
     "cases": [
       {"query": "Mắt nhìn mờ đi nhiều, cảm giác như có màn sương che trước mắt", "neg": []},
       {"query": "Đỏ mắt, cộm ngứa, chảy nhiều nước mắt, ra gỉ mắt nhiều vào buổi sáng", "neg": []},
-      {"query": "Bị chói sáng, đau nhức hốc mắt, thị lực giảm nhanh", "neg": []}
+      {"query": "Bị chói sáng, đau nhức hốc mắt, thị lực giảm nhanh", "neg": []},
+      {"query": "Thấy hiện tượng ruồi bay lởn vởn trước mắt phải", "neg": []},
+      {"query": "Nhìn một vật thành hai (song thị), hay mỏi mắt khi dùng máy tính", "neg": []},
+      {"query": "Mí mắt bị sưng đỏ, nổi cục mụn nhỏ hơi đau nhức", "neg": []},
+      {"query": "Khô mắt rát, lúc nào cũng phải chớp mắt liên tục", "neg": []},
+      {"query": "Trẻ con xem TV hay phải nheo mắt và tiến lại gần", "neg": []},
+      {"query": "Tự nhiên mắt trái bị đỏ ngầu đốm máu nhỏ, không đau", "neg": ["không đau"]},
+      {"query": "Bố tôi bị tiểu đường, dạo này kêu mắt mờ không thấy rõ", "neg": []},
+      {"query": "Mắt hay bị giật liên hồi ở vùng mi dưới", "neg": []},
+      {"query": "Khám đo kính cận định kỳ vì dạo này nhìn xa không rõ", "neg": []},
+      {"query": "Nhìn các đường thẳng bị cong vẹo, nhìn chữ hay bị nhòe", "neg": []},
+      {"query": "Có dị vật bay vào mắt hôm qua, nay cộm và xốn quá", "neg": []},
+      {"query": "Đau nhức dữ dội lan lên đầu, mắt đỏ, sờ vào thấy căng cứng", "neg": []}
     ]
   },
   "Nhi khoa": {
@@ -68,7 +164,19 @@
     "cases": [
       {"query": "Bé 3 tuổi sốt cao 39 độ, ho đờm, bỏ bú", "neg": []},
       {"query": "Trẻ đi ngoài phân lỏng, nôn trớ nhiều sau khi ăn", "neg": []},
-      {"query": "Bé có nhiều mẩn đỏ ở tay chân, miệng có vết loét", "neg": []}
+      {"query": "Bé có nhiều mẩn đỏ ở tay chân, miệng có vết loét", "neg": []},
+      {"query": "Con tôi 5 tuổi khóc đêm hoài, hay đưa tay gãi tai", "neg": []},
+      {"query": "Trẻ 1 tuổi lười ăn, chậm tăng cân, da xanh xao", "neg": []},
+      {"query": "Bé bị thở khò khè, lõm ngực mỗi lần hít vào", "neg": []},
+      {"query": "Nổi ban đỏ khắp mình mẩy sau khi sốt 3 ngày", "neg": []},
+      {"query": "Trẻ hay bị chảy máu cam vô cớ, đổ mồ hôi trộm", "neg": []},
+      {"query": "Cháu nhà tôi 2 tuổi đi cầu phân sống, lợn cợn hạt", "neg": []},
+      {"query": "Bé bị táo bón nặng, 3-4 ngày mới đi rặn khóc thét", "neg": []},
+      {"query": "Sốt nhẹ, ho khan, nước mũi chảy dầm dề ở trẻ 6 tháng", "neg": []},
+      {"query": "Bé bị mẩn ngứa thành từng mảng lớn ở hai má và khuỷu tay", "neg": []},
+      {"query": "Trẻ 8 tuổi hay kêu đau mỏi hai chân về đêm", "neg": []},
+      {"query": "Bé bị hóc xương cá, khóc nhiều và không chịu nuốt nước bọt", "neg": []},
+      {"query": "Muốn khám dinh dưỡng cho bé 4 tuổi bị thấp còi so với bạn bè", "neg": []}
     ]
   },
   "Tiêu hóa - Gan mật": {
@@ -76,7 +184,19 @@
     "cases": [
       {"query": "Tôi hay bị ợ chua lúc rạng sáng nhưng không buồn nôn", "neg": ["không buồn nôn"]},
       {"query": "Đau vùng dạ dày, uống thuốc dạ dày không đỡ, đi cầu phân đen", "neg": []},
-      {"query": "Bụng sôi ọt ọt liên tục, tiêu chảy ngày 3 lần, không sốt", "neg": ["không sốt"]}
+      {"query": "Bụng sôi ọt ọt liên tục, tiêu chảy ngày 3 lần, không sốt", "neg": ["không sốt"]},
+      {"query": "Đau rát vùng thượng vị, hay bị đầy hơi chướng bụng sau ăn", "neg": []},
+      {"query": "Ăn thức ăn dầu mỡ vào là hay bị đau tức hạ sườn phải", "neg": []},
+      {"query": "Thường xuyên có cảm giác buồn nôn khi ngửi mùi thức ăn, da hơi vàng", "neg": []},
+      {"query": "Cứ ăn đồ lạ là đau bụng quặn thắt, đi ngoài phân lỏng nhiều lần", "neg": []},
+      {"query": "Phân hay dẹt, có nhầy máu đỏ tươi bám quanh", "neg": []},
+      {"query": "Sụt cân nhanh, đau âm ỉ hố chậu trái, hay bị táo bón xen lẫn tiêu chảy", "neg": []},
+      {"query": "Tôi bị xơ gan, dạo này thấy bụng to ra căng tức", "neg": []},
+      {"query": "Hay bị đắng miệng buổi sáng, nôn khan, cảm giác mệt mỏi", "neg": []},
+      {"query": "Đau quặn bụng thành từng cơn, bụng chướng to đánh rắm không được", "neg": []},
+      {"query": "Men gan cao gấp 3 lần, đang cần tìm bác sĩ chuyên khoa điều trị", "neg": []},
+      {"query": "Tôi mới nội soi dạ dày có HP dương tính, cần tư vấn phác đồ", "neg": []},
+      {"query": "Hay bị nấc cụt dai dẳng, thỉnh thoảng nuốt nghẹn", "neg": []}
     ]
   },
   "Sản phụ khoa": {
@@ -84,7 +204,19 @@
     "cases": [
       {"query": "Rối loạn kinh nguyệt nhiều tháng nay, hay đau quặn bụng dưới", "neg": []},
       {"query": "Trễ kinh 2 tuần, thử que 2 vạch, nay thấy ra ít máu", "neg": []},
-      {"query": "Ngứa rát vùng kín, ra khí hư có mùi hôi", "neg": []}
+      {"query": "Ngứa rát vùng kín, ra khí hư có mùi hôi", "neg": []},
+      {"query": "Đau bụng dữ dội ngày hành kinh, phải uống thuốc giảm đau mới đỡ", "neg": []},
+      {"query": "Tôi siêu âm có nhân xơ tử cung 30mm, nay thấy hay bị rong kinh", "neg": []},
+      {"query": "Đau buốt khi quan hệ, tiểu rắt, cảm giác rất rát", "neg": []},
+      {"query": "Khí hư ra nhiều màu vàng xanh bã đậu, ngứa ngáy khó chịu", "neg": []},
+      {"query": "Phụ nữ 50 tuổi bị bốc hỏa, mất ngủ, chu kỳ kinh rất thưa", "neg": []},
+      {"query": "Ra máu bất thường giữa chu kỳ, màu đen sẫm", "neg": []},
+      {"query": "Tôi mang thai 12 tuần, muốn siêu âm đo độ mờ da gáy", "neg": []},
+      {"query": "Hay bị rỉ nước ối non khi đang bầu 34 tuần, bụng hơi gò cứng", "neg": []},
+      {"query": "Kết hôn 2 năm chưa có thai dù không kế hoạch, kinh nguyệt không đều", "neg": []},
+      {"query": "Đau tức vùng vú trước chu kỳ kinh, sờ thấy cục cứng nhỏ lổn nhổn", "neg": []},
+      {"query": "Ra huyết trắng nhiều, thỉnh thoảng đau nhói một bên buồng trứng", "neg": []},
+      {"query": "Muốn đặt vòng tránh thai cần khám tư vấn trước", "neg": []}
     ]
   },
   "Hô hấp": {
@@ -92,7 +224,19 @@
     "cases": [
       {"query": "Khó thở khi nằm, ho có đờm xanh, có hút thuốc 10 năm", "neg": []},
       {"query": "Sốt nhẹ về chiều, ho ra máu lượng ít, sụt cân", "neg": []},
-      {"query": "Thở khò khè, hay hụt hơi, đã từng bị lao phổi", "neg": []}
+      {"query": "Thở khò khè, hay hụt hơi, đã từng bị lao phổi", "neg": []},
+      {"query": "Ho khan dai dẳng suốt cả tháng trời, ngứa rát họng", "neg": []},
+      {"query": "Cơn hen phế quản tái phát lúc chuyển trời, dùng thuốc xịt mới đỡ", "neg": []},
+      {"query": "Tức ngực, khó thở nhiều khi đi lại, làm việc nhà lặt vặt cũng mệt", "neg": []},
+      {"query": "Ho khạc ra đờm đục, mệt mỏi, hơi sốt vào buổi sáng", "neg": []},
+      {"query": "Bệnh nhân COPD nay khó thở nhiều hơn, đờm vàng đặc", "neg": []},
+      {"query": "Đau nhói ngực trái mỗi khi hít thở sâu hoặc ho", "neg": []},
+      {"query": "Dạo này ngủ hay bị ngưng thở, ngáy to, sáng dậy đau đầu", "neg": []},
+      {"query": "Cứ đêm là ho rũ rượi, ho không kiểm soát được", "neg": []},
+      {"query": "Tràn dịch màng phổi đã điều trị, nay muốn tái khám do ho lại", "neg": []},
+      {"query": "Sau hậu Covid tôi vẫn bị hụt hơi, làm việc mau mệt", "neg": []},
+      {"query": "Tự nhiên khó thở ngột ngạt, tím tái cả môi sau khi gắng sức", "neg": []},
+      {"query": "Ho có tiếng rít thanh quản, rát cổ, nuốt đau", "neg": []}
     ]
   },
   "Ung bướu": {
@@ -100,7 +244,19 @@
     "cases": [
       {"query": "Sờ thấy cục cứng ở ngực trái, không đau nhưng phát triển nhanh", "neg": ["không đau"]},
       {"query": "Nổi hạch ở cổ lâu ngày không xẹp, sụt cân nhanh", "neg": []},
-      {"query": "Cần tư vấn về phác đồ hóa trị cho K đại tràng giai đoạn 2", "neg": []}
+      {"query": "Cần tư vấn về phác đồ hóa trị cho K đại tràng giai đoạn 2", "neg": []},
+      {"query": "Khàn tiếng kéo dài, sờ thấy cổ sưng to một bên", "neg": []},
+      {"query": "Cục bướu trên da lưng thay đổi màu sắc và to lên nhanh chóng", "neg": []},
+      {"query": "Ho ra máu lượng ít nhưng thường xuyên, sụt 5kg trong 1 tháng", "neg": []},
+      {"query": "Đi tiêu ra máu bầm, phân dẹt, gia đình có người bị ung thư đại trực tràng", "neg": []},
+      {"query": "Nuốt vướng, cảm giác có khối u ở họng, nghẹn khi ăn đồ đặc", "neg": []},
+      {"query": "Nổi cục sưng to ở nách, ấn vào thấy cứng và dính chặt", "neg": []},
+      {"query": "Sau xạ trị ung thư vú nay tôi hay bị phù tay bên trái", "neg": []},
+      {"query": "Sờ thấy nhân tuyến giáp cứng chắc, di động theo nhịp nuốt", "neg": []},
+      {"query": "Tiểu ra máu không đau rát, kéo dài mấy hôm nay", "neg": ["không đau rát"]},
+      {"query": "Phát hiện khối u buồng trứng kích thước 5x6cm, cần khám chuyên sâu", "neg": []},
+      {"query": "Nốt ruồi bỗng nhiên ngứa rỉ máu, bờ không đều", "neg": []},
+      {"query": "Ung thư gan đang giai đoạn cuối cần tư vấn chăm sóc giảm nhẹ", "neg": []}
     ]
   },
   "Da liễu": {
@@ -108,7 +264,19 @@
     "cases": [
       {"query": "Nổi mẩn ngứa khắp người sau khi ăn hải sản", "neg": []},
       {"query": "Da bị tróc vảy trắng, ngứa ngáy dữ dội ở vùng khuỷu tay, đầu gối", "neg": []},
-      {"query": "Nhiều mụn bọc sưng đỏ ở mặt, để lại sẹo rỗ", "neg": []}
+      {"query": "Nhiều mụn bọc sưng đỏ ở mặt, để lại sẹo rỗ", "neg": []},
+      {"query": "Dưới nếp gấp ngực bị đỏ rát, có dịch rỉ ướt, ngứa nhiều", "neg": []},
+      {"query": "Kẽ ngón chân bị nứt nẻ, lột da, rất ngứa khi lội nước", "neg": []},
+      {"query": "Trên da xuất hiện các nốt bọng nước mọc thành chùm dọc theo mạn sườn, rát buốt", "neg": []},
+      {"query": "Mảng da ở tay bị mất sắc tố, trắng loang lổ", "neg": []},
+      {"query": "Da dạo này sạm nám 2 bên gò má rất nhiều", "neg": []},
+      {"query": "Rụng tóc từng mảng lớn trên đỉnh đầu, thấy rõ cả da đầu", "neg": []},
+      {"query": "Móng tay bị dày sừng, màu vàng đục, mủn ra", "neg": []},
+      {"query": "Nổi nhiều mụn nước li ti ngứa ngáy ở lòng bàn tay bàn chân", "neg": []},
+      {"query": "Bé nhà tôi bị hăm tã nặng, đỏ rát cả vùng mông", "neg": []},
+      {"query": "Có vết loét ở vùng kín không thấy đau nhưng lâu lành", "neg": ["không thấy đau"]},
+      {"query": "Nốt ban đỏ hình đồng tiền nổi ở cổ, ngứa nhiều về đêm", "neg": []},
+      {"query": "Mụn cóc ở bàn chân đi lại dẫm xuống rất cộm và đau", "neg": []}
     ]
   },
   "Nội tiết": {
@@ -116,7 +284,19 @@
     "cases": [
       {"query": "Khát nước liên tục, đi tiểu nhiều, sụt cân dù ăn nhiều", "neg": []},
       {"query": "Cổ to ra, hay run tay, nhịp tim nhanh, vã mồ hôi", "neg": []},
-      {"query": "Đang mang thai, xét nghiệm tiểu đường thai kỳ đường huyết cao", "neg": []}
+      {"query": "Đang mang thai, xét nghiệm tiểu đường thai kỳ đường huyết cao", "neg": []},
+      {"query": "Dạo này tôi tăng cân không kiểm soát, mặt tròn xoe, da mỏng hay bầm", "neg": []},
+      {"query": "Rất sợ lạnh, da khô, tóc rụng nhiều, làm việc hay buồn ngủ", "neg": []},
+      {"query": "Chỉ số đường huyết buổi sáng đo được 8.5 mmol/l, hay bị tê ngón chân", "neg": []},
+      {"query": "Kinh nguyệt thưa, rậm lông ở mép và cằm, siêu âm buồng trứng đa nang", "neg": []},
+      {"query": "Người lúc nào cũng hồi hộp, đánh trống ngực, nóng bừng mặt", "neg": []},
+      {"query": "Vết thương ở chân lâu lành, có dấu hiệu nhiễm trùng", "neg": []},
+      {"query": "Hay bị hạ đường huyết vã mồ hôi, hoa mắt chóng mặt lúc đói", "neg": []},
+      {"query": "Sưng mí mắt, lồi mắt, cảm giác như cát rớt vào mắt", "neg": []},
+      {"query": "Bị tiểu đường tuýp 2, nay thấy mờ mắt và kiến bò ở bàn chân", "neg": []},
+      {"query": "Cháu 12 tuổi mà lùn hơn hẳn các bạn cùng lớp, cần khám hormone tăng trưởng", "neg": []},
+      {"query": "Đang uống thuốc suy giáp nhưng nay lại thấy hay bị tim đập thịch thịch", "neg": []},
+      {"query": "Tự nhiên thèm đồ ngọt ghê gớm, đi tiểu kiến bâu", "neg": []}
     ]
   }
 }
