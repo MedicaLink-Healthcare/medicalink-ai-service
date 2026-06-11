@@ -70,6 +70,14 @@ async def main() -> None:
         sparse_model_name=s.fastembed_sparse_model,
         prefetch_limit=s.retrieval_prefetch_limit,
     )
+    
+    # Delete old collection to prevent orphaned data from soft-deleted doctors
+    try:
+        await qdrant.delete_collection(s.qdrant_collection_name)
+        logger.info(f"Deleted old collection {s.qdrant_collection_name} to clear stale data")
+    except Exception as e:
+        logger.warning(f"Could not delete collection (maybe not exists): {e}")
+
     await store.ensure_collection()
 
     doctors = await fetch_all_public_doctors(s.api_gateway_base_url)
