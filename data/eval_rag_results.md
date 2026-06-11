@@ -10,8 +10,21 @@
 
 | STT | Câu truy vấn (Query) | Phủ định (Negations) | API Status | Kết quả (Result) |
 |---|---|---|---|---|
-| 1 | Dạo này tôi hay bị mệt mỏi vô cớ, sụt cân nhanh dù ăn uống bình thường | - | ROUTE_FAILED | ❌ Failed |
-| 2 | Đo huyết áp lúc cao lúc thấp, thỉnh thoảng nhức đầu nhẹ | - | ROUTE_FAILED | ❌ Failed |
+| 1 | Tôi muốn đăng ký khám sức khỏe tổng quát định kỳ để kiểm tra toàn diện | - | ROUTE_FAILED | ❌ Failed |
+| 2 | Cơ thể hay bị suy nhược, người mệt mỏi rã rời kéo dài mà không rõ nguyên nhân bệnh gì | - | ROUTE_FAILED | ❌ Failed |
+| 3 | Cần tư vấn và khám sức khỏe tổng thể để hoàn thiện hồ sơ xin việc | - | ROUTE_FAILED | ❌ Failed |
+| 4 | Gần đây tôi ăn uống kém, ngủ không ngon giấc, người cứ lờ đờ uể oải cả ngày | - | ROUTE_FAILED | ❌ Failed |
+| 5 | Tôi muốn làm xét nghiệm máu tổng quát để kiểm tra các chỉ số cơ bản hàng năm | - | ROUTE_FAILED | ❌ Failed |
+| 6 | Hay bị ốm vặt, sức đề kháng kém, muốn khám nội khoa xem cơ thể có thiếu hụt chất gì không | - | ROUTE_FAILED | ❌ Failed |
+| 7 | Cơ thể bị suy nhược sau một đợt ốm dài ngày, cần khám bác sĩ nội chung để phục hồi thể trạng | - | ROUTE_FAILED | ❌ Failed |
+| 8 | Xin tư vấn gói tầm soát sức khỏe toàn diện cho nam giới trên 40 tuổi | - | ROUTE_FAILED | ❌ Failed |
+| 9 | Tôi cảm thấy trong người không được khỏe nhưng không rõ triệu chứng cụ thể, muốn khám tổng quát trước | - | ROUTE_FAILED | ❌ Failed |
+| 10 | Cần đo các chỉ số cơ thể cơ bản, khám sức khoẻ tổng quát và siêu âm ổ bụng định kỳ | - | ROUTE_FAILED | ❌ Failed |
+| 11 | Người lớn tuổi dạo này ăn ngủ kém, muốn bác sĩ nội khoa khám tổng thể kiểm tra sức khỏe | - | ROUTE_FAILED | ❌ Failed |
+| 12 | Sụt cân nhẹ, người mệt mỏi nhưng không ho không sốt, muốn khám nội khoa chung tìm nguyên nhân | không ho, không sốt | ROUTE_FAILED | ❌ Failed |
+| 13 | Cần khám sức khỏe tiền hôn nhân tổng hợp cho 2 vợ chồng | - | ROUTE_FAILED | ❌ Failed |
+| 14 | Đăng ký gói khám bệnh định kỳ cho nhân viên văn phòng bao gồm khám nội chung | - | ROUTE_FAILED | ❌ Failed |
+| 15 | Tôi muốn khám các bệnh lý nội khoa thông thường và làm xét nghiệm kiểm tra sức khỏe hàng năm | - | ROUTE_FAILED | ❌ Failed |
 
 ## 2. Kiểm thử Cơ chế An toàn (Emergency Guardrails)
 
@@ -28,7 +41,7 @@
 | Nội tổng quát | 15 | 0 | **0.0%** |
 
 ### Kết luận chung
-- **OVERALL ROUTING ACCURACY:** 0/2 (0.0%)
+- **OVERALL ROUTING ACCURACY:** 0/15 (0.0%)
 - **CQU NEGATION EXTRACTION:** Đã kiểm chứng qua API thực tế
 - **VECTOR BLEEDING PREVENTION:** Passed (Top 1 Intent match is strictly enforced by Intent Bonus).
 

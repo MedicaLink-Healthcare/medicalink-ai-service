@@ -225,7 +225,11 @@ async def suggest_specialties_from_catalog(
 
     if not out_ids:
         note = "Không tìm thấy chuyên khoa khớp chính xác, gợi ý bác sĩ tổng quát hoặc bạn tự chọn chuyên khoa."
-
+        gp_names = ["bác sĩ gia đình", "nội tổng quát"]
+        for c in catalog:
+            name_lower = str(c.get("name") or "").strip().lower()
+            if any(p in name_lower for p in gp_names):
+                out_ids.append(c["id"])
     # Production Observability Event (JSON for ELK/Grafana)
     logger.info(
         "metrics_event: %s",

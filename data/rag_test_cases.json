@@ -2,21 +2,21 @@
   "Nội tổng quát": {
     "specialty_id": "cmnde90369e8b17431587bedd",
     "cases": [
-      {"query": "Dạo này tôi hay bị mệt mỏi vô cớ, sụt cân nhanh dù ăn uống bình thường", "neg": []},
-      {"query": "Đo huyết áp lúc cao lúc thấp, thỉnh thoảng nhức đầu nhẹ", "neg": []},
-      {"query": "Muốn đi khám sức khỏe định kỳ do dạo này người uể oải", "neg": []},
-      {"query": "Tôi bị sốt nhẹ về chiều kèm theo chán ăn đã 1 tuần nay", "neg": []},
-      {"query": "Hay bị chóng mặt mỗi khi đứng lên ngồi xuống, người mệt mỏi", "neg": []},
-      {"query": "Tự nhiên dạo này tôi thấy khát nước nhiều và đi tiểu liên tục", "neg": []},
-      {"query": "Cảm giác lạnh run dù trời không lạnh, mệt mỏi rã rời", "neg": []},
-      {"query": "Tôi muốn kiểm tra tổng quát mỡ máu và men gan vì dạo này hay nhậu", "neg": []},
-      {"query": "Tay chân hay bị bầm tím mà không rõ nguyên nhân va đập", "neg": []},
-      {"query": "Hay bị đổ mồ hôi trộm ban đêm, ngủ không sâu giấc", "neg": []},
-      {"query": "Lưng tôi hay bị nhức mỏi, kèm theo mệt mỏi cả ngày", "neg": []},
-      {"query": "Thường xuyên bị khô miệng và đắng miệng vào buổi sáng", "neg": []},
-      {"query": "Tôi thấy nhịp tim đập nhanh hồi hộp, muốn khám xem có sao không", "neg": []},
-      {"query": "Bố tôi 60 tuổi, muốn đăng ký gói khám tầm soát các bệnh mãn tính", "neg": []},
-      {"query": "Tôi cảm thấy khó thở nhẹ và tức ngực mỗi khi căng thẳng", "neg": []}
+      {"query": "Tôi muốn đăng ký khám sức khỏe tổng quát định kỳ để kiểm tra toàn diện", "neg": []},
+      {"query": "Cơ thể hay bị suy nhược, người mệt mỏi rã rời kéo dài mà không rõ nguyên nhân bệnh gì", "neg": []},
+      {"query": "Cần tư vấn và khám sức khỏe tổng thể để hoàn thiện hồ sơ xin việc", "neg": []},
+      {"query": "Gần đây tôi ăn uống kém, ngủ không ngon giấc, người cứ lờ đờ uể oải cả ngày", "neg": []},
+      {"query": "Tôi muốn làm xét nghiệm máu tổng quát để kiểm tra các chỉ số cơ bản hàng năm", "neg": []},
+      {"query": "Hay bị ốm vặt, sức đề kháng kém, muốn khám nội khoa xem cơ thể có thiếu hụt chất gì không", "neg": []},
+      {"query": "Cơ thể bị suy nhược sau một đợt ốm dài ngày, cần khám bác sĩ nội chung để phục hồi thể trạng", "neg": []},
+      {"query": "Xin tư vấn gói tầm soát sức khỏe toàn diện cho nam giới trên 40 tuổi", "neg": []},
+      {"query": "Tôi cảm thấy trong người không được khỏe nhưng không rõ triệu chứng cụ thể, muốn khám tổng quát trước", "neg": []},
+      {"query": "Cần đo các chỉ số cơ thể cơ bản, khám sức khoẻ tổng quát và siêu âm ổ bụng định kỳ", "neg": []},
+      {"query": "Người lớn tuổi dạo này ăn ngủ kém, muốn bác sĩ nội khoa khám tổng thể kiểm tra sức khỏe", "neg": []},
+      {"query": "Sụt cân nhẹ, người mệt mỏi nhưng không ho không sốt, muốn khám nội khoa chung tìm nguyên nhân", "neg": ["không ho", "không sốt"]},
+      {"query": "Cần khám sức khỏe tiền hôn nhân tổng hợp cho 2 vợ chồng", "neg": []},
+      {"query": "Đăng ký gói khám bệnh định kỳ cho nhân viên văn phòng bao gồm khám nội chung", "neg": []},
+      {"query": "Tôi muốn khám các bệnh lý nội khoa thông thường và làm xét nghiệm kiểm tra sức khỏe hàng năm", "neg": []}
     ]
   },
   "Tim mạch": {
