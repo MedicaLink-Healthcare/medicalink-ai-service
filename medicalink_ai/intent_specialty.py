@@ -212,6 +212,7 @@ async def suggest_specialties_from_catalog(
     
     nhi_khoa_id = next((c["id"] for c in catalog if "nhi" in c.get("name", "").lower()), None)
     san_phu_khoa_id = next((c["id"] for c in catalog if "sản" in c.get("name", "").lower() or "phụ khoa" in c.get("name", "").lower()), None)
+    noi_tong_quat_id = next((c["id"] for c in catalog if "tổng quát" in c.get("name", "").lower() or "gia đình" in c.get("name", "").lower()), None)
     
     # Rule 1: Nhi khoa (Pediatrics) - Triggered by demographic or strong keywords
     child_words = ["trẻ", "bé", "con tôi", "cháu", "sơ sinh"]
@@ -228,6 +229,14 @@ async def suggest_specialties_from_catalog(
             out_ids.remove(san_phu_khoa_id)
         out_ids.insert(0, san_phu_khoa_id)
         logger.info("[Rule Override] Forced Sản phụ khoa based on domain-specific keywords.")
+
+    # Rule 3: Nội tổng quát (General Medicine) - Triggered by general queries
+    gp_words = ["tổng quát", "tổng thể", "định kỳ", "hàng năm", "toàn diện", "không rõ nguyên nhân", "tầm soát"]
+    if noi_tong_quat_id and any(w in query_lower for w in gp_words):
+        if noi_tong_quat_id in out_ids:
+            out_ids.remove(noi_tong_quat_id)
+        out_ids.insert(0, noi_tong_quat_id)
+        logger.info("[Rule Override] Forced Nội tổng quát based on general keywords.")
 
     # 5. Emergency Override Layer Enhancement
     if is_critical:
