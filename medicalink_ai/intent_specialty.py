@@ -39,7 +39,8 @@ Return a single JSON object with this exact structure:
   "note": "1–2 short friendly Vietnamese sentences for the patient",
   "triage_level": "routine" | "urgent" | "critical",
   "urgency_score": float (0.0 to 1.0),
-  "emergency_reason": "string (only if critical or urgent, otherwise empty)"
+  "emergency_reason": "string (only if critical or urgent, otherwise empty)",
+  "is_medical_query": boolean
 }
 
 CRITICAL RULES:
@@ -58,6 +59,7 @@ CRITICAL RULES:
    - "urgent": Needs prompt attention.
    - "critical": LIFE-THREATENING emergency (đau ngực, đột quỵ, khó thở cấp).
 5. Keep symptoms concise (1-3 words). Do NOT invent symptoms.
+6. OUT OF SCOPE: If the user query is clearly not related to health, symptoms, or booking a doctor (e.g. "cách nấu cơm", "thời tiết"), set "is_medical_query" to false. Otherwise, true.
 """
 
 def detect_rule_based_emergency(text: str) -> bool:
@@ -108,6 +110,29 @@ async def suggest_specialties_from_catalog(
     except Exception as e:
         logger.warning("Symptom extraction failed: %s", e)
         parsed = {}
+
+    is_medical_query = bool(parsed.get("is_medical_query", True))
+    if not is_medical_query:
+        logger.info("[Triage Evaluation] Out of scope query detected. Rejecting.")
+        return {
+            "specialty_ids": [],
+            "note": "Hệ thống MedicaLink chỉ hỗ trợ tư vấn và gợi ý bác sĩ chuyên khoa. Xin vui lòng đặt các câu hỏi liên quan đến sức khỏe và triệu chứng bệnh.",
+            "extracted_symptoms": [],
+            "negated_symptoms": [],
+            "patient_demographic": "",
+            "symptom_duration": "",
+            "severity": "low",
+            "common_priors": [],
+            "dangerous_priors": [],
+            "clarification_question": "",
+            "triage_level": "routine",
+            "urgency_score": 0.0,
+            "is_emergency": False,
+            "emergency_reason": "",
+            "routing_confidence": 0.0,
+            "is_fallback": True,
+            "fallback_reason": "out_of_scope",
+        }
 
     extracted_symptoms = parsed.get("symptoms", [])
     if not isinstance(extracted_symptoms, list):
