@@ -10,19 +10,19 @@
 
 | STT | Câu truy vấn (Query) | Phủ định (Negations) | API Status | Kết quả (Result) |
 |---|---|---|---|---|
-| 1 | Tôi muốn đăng ký khám sức khỏe tổng quát định kỳ để kiểm tra toàn diện | - | SUCCESS | ✅ Passed |
+| 1 | Tôi muốn đăng ký khám sức khỏe tổng quát định kỳ để kiểm tra toàn diện | - | ROUTE_FAILED | ❌ Failed |
 | 2 | Cơ thể hay bị suy nhược, người mệt mỏi rã rời kéo dài mà không rõ nguyên nhân bệnh gì | - | SUCCESS | ✅ Passed |
-| 3 | Cần tư vấn và khám sức khỏe tổng thể để hoàn thiện hồ sơ xin việc | - | SUCCESS | ✅ Passed |
+| 3 | Cần tư vấn và khám sức khỏe tổng thể để hoàn thiện hồ sơ xin việc | - | ROUTE_FAILED | ❌ Failed |
 | 4 | Gần đây tôi ăn uống kém, ngủ không ngon giấc, người cứ lờ đờ uể oải cả ngày | - | ROUTE_FAILED | ❌ Failed |
-| 5 | Tôi muốn làm xét nghiệm máu tổng quát để kiểm tra các chỉ số cơ bản hàng năm | - | SUCCESS | ✅ Passed |
+| 5 | Tôi muốn làm xét nghiệm máu tổng quát để kiểm tra các chỉ số cơ bản hàng năm | - | ROUTE_FAILED | ❌ Failed |
 | 6 | Hay bị ốm vặt, sức đề kháng kém, muốn khám nội khoa xem cơ thể có thiếu hụt chất gì không | - | SUCCESS | ✅ Passed |
 | 7 | Cơ thể bị suy nhược sau một đợt ốm dài ngày, cần khám bác sĩ nội chung để phục hồi thể trạng | - | ROUTE_FAILED | ❌ Failed |
-| 8 | Xin tư vấn gói tầm soát sức khỏe toàn diện cho nam giới trên 40 tuổi | - | SUCCESS | ✅ Passed |
+| 8 | Xin tư vấn gói tầm soát sức khỏe toàn diện cho nam giới trên 40 tuổi | - | ROUTE_FAILED | ❌ Failed |
 | 9 | Tôi cảm thấy trong người không được khỏe nhưng không rõ triệu chứng cụ thể, muốn khám tổng quát trước | - | SUCCESS | ✅ Passed |
-| 10 | Cần đo các chỉ số cơ thể cơ bản, khám sức khoẻ tổng quát và siêu âm ổ bụng định kỳ | - | SUCCESS | ✅ Passed |
+| 10 | Cần đo các chỉ số cơ thể cơ bản, khám sức khoẻ tổng quát và siêu âm ổ bụng định kỳ | - | ROUTE_FAILED | ❌ Failed |
 | 11 | Người lớn tuổi dạo này ăn ngủ kém, muốn bác sĩ nội khoa khám tổng thể kiểm tra sức khỏe | - | ROUTE_FAILED | ❌ Failed |
 | 12 | Sụt cân nhẹ, người mệt mỏi nhưng không ho không sốt, muốn khám nội khoa chung tìm nguyên nhân | không ho, không sốt | SUCCESS | ✅ Passed |
-| 13 | Cần khám sức khỏe tiền hôn nhân tổng hợp cho 2 vợ chồng | - | SUCCESS | ✅ Passed |
+| 13 | Cần khám sức khỏe tiền hôn nhân tổng hợp cho 2 vợ chồng | - | ROUTE_FAILED | ❌ Failed |
 | 14 | Đăng ký gói khám bệnh định kỳ cho nhân viên văn phòng bao gồm khám nội chung | - | SUCCESS | ✅ Passed |
 | 15 | Tôi muốn khám các bệnh lý nội khoa thông thường và làm xét nghiệm kiểm tra sức khỏe hàng năm | - | SUCCESS | ✅ Passed |
 
@@ -110,7 +110,7 @@
 | 10 | Tôi hay bị són tiểu khi ho hoặc hắt hơi mạnh | - | SUCCESS | ✅ Passed |
 | 11 | Đi tiểu ra cặn trắng lợn cợn, đôi lúc có cảm giác tắc nghẽn | - | ROUTE_FAILED | ❌ Failed |
 | 12 | Sưng đau vùng tinh hoàn bên trái, đi lại rất tức | - | ROUTE_FAILED | ❌ Failed |
-| 13 | Xét nghiệm siêu âm có sỏi niệu quản 6mm, cần tư vấn tán sỏi | - | SUCCESS | ✅ Passed |
+| 13 | Xét nghiệm siêu âm có sỏi niệu quản 6mm, cần tư vấn tán sỏi | - | ROUTE_FAILED | ❌ Failed |
 | 14 | Tôi hay bị tiểu buốt sau khi quan hệ tình dục | - | SUCCESS | ✅ Passed |
 | 15 | Bác sĩ trước chẩn đoán tôi bị phì đại tuyến tiền liệt, nay tiểu khó hơn | - | SUCCESS | ✅ Passed |
 
@@ -219,7 +219,7 @@
 | 9 | Sụt cân nhanh, đau âm ỉ hố chậu trái, hay bị táo bón xen lẫn tiêu chảy | - | ROUTE_FAILED | ❌ Failed |
 | 10 | Tôi bị xơ gan, dạo này thấy bụng to ra căng tức | - | ROUTE_FAILED | ❌ Failed |
 | 11 | Hay bị đắng miệng buổi sáng, nôn khan, cảm giác mệt mỏi | - | ROUTE_FAILED | ❌ Failed |
-| 12 | Đau quặn bụng thành từng cơn, bụng chướng to đánh rắm không được | - | ROUTE_FAILED | ❌ Failed |
+| 12 | Đau quặn bụng thành từng cơn, bụng chướng to đánh rắm không được | không đánh rắm được | ROUTE_FAILED | ❌ Failed |
 | 13 | Men gan cao gấp 3 lần, đang cần tìm bác sĩ chuyên khoa điều trị | - | SUCCESS | ✅ Passed |
 | 14 | Tôi mới nội soi dạ dày có HP dương tính, cần tư vấn phác đồ | - | ROUTE_FAILED | ❌ Failed |
 | 15 | Hay bị nấc cụt dai dẳng, thỉnh thoảng nuốt nghẹn | - | ROUTE_FAILED | ❌ Failed |
@@ -274,15 +274,15 @@
 
 | STT | Câu truy vấn (Query) | Phủ định (Negations) | API Status | Kết quả (Result) |
 |---|---|---|---|---|
-| 1 | Sờ thấy cục cứng ở ngực trái, không đau nhưng phát triển nhanh | không đau | SUCCESS | ✅ Passed |
-| 2 | Nổi hạch ở cổ lâu ngày không xẹp, sụt cân nhanh | - | SUCCESS | ✅ Passed |
-| 3 | Cần tư vấn về phác đồ hóa trị cho K đại tràng giai đoạn 2 | - | ROUTE_FAILED | ❌ Failed |
-| 4 | Khàn tiếng kéo dài, sờ thấy cổ sưng to một bên | - | ROUTE_FAILED | ❌ Failed |
-| 5 | Cục bướu trên da lưng thay đổi màu sắc và to lên nhanh chóng | - | SUCCESS | ✅ Passed |
-| 6 | Ho ra máu lượng ít nhưng thường xuyên, sụt 5kg trong 1 tháng | - | SUCCESS | ✅ Passed |
-| 7 | Đi tiêu ra máu bầm, phân dẹt, gia đình có người bị ung thư đại trực tràng | - | SUCCESS | ✅ Passed |
+| 1 | Sờ thấy cục cứng ở ngực trái, không đau nhưng phát triển nhanh | không đau | SUGGEST_FAILED | ❌ Failed |
+| 2 | Nổi hạch ở cổ lâu ngày không xẹp, sụt cân nhanh | - | SUGGEST_FAILED | ❌ Failed |
+| 3 | Cần tư vấn về phác đồ hóa trị cho K đại tràng giai đoạn 2 | - | SUGGEST_FAILED | ❌ Failed |
+| 4 | Khàn tiếng kéo dài, sờ thấy cổ sưng to một bên | - | SUGGEST_FAILED | ❌ Failed |
+| 5 | Cục bướu trên da lưng thay đổi màu sắc và to lên nhanh chóng | - | SUGGEST_FAILED | ❌ Failed |
+| 6 | Ho ra máu lượng ít nhưng thường xuyên, sụt 5kg trong 1 tháng | - | SUGGEST_FAILED | ❌ Failed |
+| 7 | Đi tiêu ra máu bầm, phân dẹt, gia đình có người bị ung thư đại trực tràng | - | SUGGEST_FAILED | ❌ Failed |
 | 8 | Nuốt vướng, cảm giác có khối u ở họng, nghẹn khi ăn đồ đặc | - | SUCCESS | ✅ Passed |
-| 9 | Nổi cục sưng to ở nách, ấn vào thấy cứng và dính chặt | - | SUCCESS | ✅ Passed |
+| 9 | Nổi cục sưng to ở nách, ấn vào thấy cứng và dính chặt | - | ROUTE_FAILED | ❌ Failed |
 | 10 | Sau xạ trị ung thư vú nay tôi hay bị phù tay bên trái | - | ROUTE_FAILED | ❌ Failed |
 | 11 | Sờ thấy nhân tuyến giáp cứng chắc, di động theo nhịp nuốt | - | ROUTE_FAILED | ❌ Failed |
 | 12 | Tiểu ra máu không đau rát, kéo dài mấy hôm nay | - | SUCCESS | ✅ Passed |
@@ -299,16 +299,16 @@
 | 1 | Nổi mẩn ngứa khắp người sau khi ăn hải sản | - | SUCCESS | ✅ Passed |
 | 2 | Da bị tróc vảy trắng, ngứa ngáy dữ dội ở vùng khuỷu tay, đầu gối | - | SUCCESS | ✅ Passed |
 | 3 | Nhiều mụn bọc sưng đỏ ở mặt, để lại sẹo rỗ | - | SUCCESS | ✅ Passed |
-| 4 | Dưới nếp gấp ngực bị đỏ rát, có dịch rỉ ướt, ngứa nhiều | - | SUCCESS | ✅ Passed |
+| 4 | Dưới nếp gấp ngực bị đỏ rát, có dịch rỉ ướt, ngứa nhiều | - | ROUTE_FAILED | ❌ Failed |
 | 5 | Kẽ ngón chân bị nứt nẻ, lột da, rất ngứa khi lội nước | - | SUCCESS | ✅ Passed |
-| 6 | Trên da xuất hiện các nốt bọng nước mọc thành chùm dọc theo mạn sườn, rát buốt | - | SUGGEST_FAILED | ❌ Failed |
-| 7 | Mảng da ở tay bị mất sắc tố, trắng loang lổ | - | SUGGEST_FAILED | ❌ Failed |
-| 8 | Da dạo này sạm nám 2 bên gò má rất nhiều | - | SUGGEST_FAILED | ❌ Failed |
-| 9 | Rụng tóc từng mảng lớn trên đỉnh đầu, thấy rõ cả da đầu | - | SUGGEST_FAILED | ❌ Failed |
-| 10 | Móng tay bị dày sừng, màu vàng đục, mủn ra | - | SUGGEST_FAILED | ❌ Failed |
-| 11 | Nổi nhiều mụn nước li ti ngứa ngáy ở lòng bàn tay bàn chân | - | SUGGEST_FAILED | ❌ Failed |
-| 12 | Bé nhà tôi bị hăm tã nặng, đỏ rát cả vùng mông | - | SUGGEST_FAILED | ❌ Failed |
-| 13 | Có vết loét ở vùng kín không thấy đau nhưng lâu lành | không đau | SUCCESS | ✅ Passed |
+| 6 | Trên da xuất hiện các nốt bọng nước mọc thành chùm dọc theo mạn sườn, rát buốt | - | ROUTE_FAILED | ❌ Failed |
+| 7 | Mảng da ở tay bị mất sắc tố, trắng loang lổ | - | SUCCESS | ✅ Passed |
+| 8 | Da dạo này sạm nám 2 bên gò má rất nhiều | - | SUCCESS | ✅ Passed |
+| 9 | Rụng tóc từng mảng lớn trên đỉnh đầu, thấy rõ cả da đầu | - | SUCCESS | ✅ Passed |
+| 10 | Móng tay bị dày sừng, màu vàng đục, mủn ra | - | SUCCESS | ✅ Passed |
+| 11 | Nổi nhiều mụn nước li ti ngứa ngáy ở lòng bàn tay bàn chân | - | SUCCESS | ✅ Passed |
+| 12 | Bé nhà tôi bị hăm tã nặng, đỏ rát cả vùng mông | - | ROUTE_FAILED | ❌ Failed |
+| 13 | Có vết loét ở vùng kín không thấy đau nhưng lâu lành | không đau | ROUTE_FAILED | ❌ Failed |
 | 14 | Nốt ban đỏ hình đồng tiền nổi ở cổ, ngứa nhiều về đêm | - | SUCCESS | ✅ Passed |
 | 15 | Mụn cóc ở bàn chân đi lại dẫm xuống rất cộm và đau | - | ROUTE_FAILED | ❌ Failed |
 
@@ -339,18 +339,40 @@
 | STT | Câu truy vấn khẩn cấp (Emergency Query) | API Status | Kết quả đánh chặn (Intercept Result) |
 |---|---|---|---|
 | 1 | Tôi bị đau ngực như dao đâm lan ra sau lưng | SUCCESS | 🚨 Intercepted |
-| 2 | Tự nhiên bị liệt nửa mặt, nói ngọng | SUCCESS | 🚨 Intercepted |
-| 3 | Khó thở co kéo lồng ngực, mặt tím tái | SUCCESS | 🚨 Intercepted |
+| 2 | Tự nhiên bị liệt nửa mặt, méo miệng, nói ngọng | SUCCESS | 🚨 Intercepted |
+| 3 | Khó thở co kéo lồng ngực, môi và mặt tím tái | SUCCESS | 🚨 Intercepted |
+| 4 | Đột ngột ngất xỉu, co giật, sùi bọt mép | SUCCESS | 🚨 Intercepted |
+| 5 | Bị tai nạn giao thông, chấn thương đầu chảy rất nhiều máu | SUCCESS | 🚨 Intercepted |
+| 6 | Nôn ra máu tươi ồ ạt, đau quặn thắt vùng bụng | SUCCESS | 🚨 Intercepted |
+| 7 | Tim đập dồn dập muốn ngất, huyết áp đo được 220/120 | SUCCESS | 🚨 Intercepted |
+| 8 | Bị phỏng nước sôi diện rộng, lột da, đau rát dữ dội | SUCCESS | 🚨 Intercepted |
+| 9 | Trẻ uống nhầm thuốc trừ sâu, đang lịm đi | SUCCESS | 🚨 Intercepted |
+| 10 | Ông tôi đột nhiên không thở được, mất ý thức gọi không thưa | SUCCESS | 🚨 Intercepted |
+
+## 3. Kiểm thử Ngăn chặn Câu hỏi Rác (Out-of-Domain Guardrails)
+
+| STT | Câu hỏi Rác (Out-of-Domain Query) | API Status | Kết quả đánh chặn (Intercept Result) |
+|---|---|---|---|
+| 1 | Cách nấu cơm sườn sụn ngon nhất | SUCCESS | 🛡️ Intercepted |
+| 2 | Thời tiết hôm nay ở Hà Nội thế nào | SUCCESS | 🛡️ Intercepted |
+| 3 | Làm sao để trúng số độc đắc Vietlott | SUCCESS | 🛡️ Intercepted |
+| 4 | Tư vấn cấu hình máy tính laptop chơi game liên minh | SUCCESS | 🛡️ Intercepted |
+| 5 | Giá vàng SJC hôm nay mua vào bán ra bao nhiêu một lượng | SUCCESS | 🛡️ Intercepted |
+| 6 | Review phim điện ảnh mới ra rạp có hay không | SUCCESS | 🛡️ Intercepted |
+| 7 | Cách làm đồ án tốt nghiệp công nghệ thông tin bằng AI | SUCCESS | 🛡️ Intercepted |
+| 8 | Hướng dẫn mua vé máy bay giá rẻ đi du lịch Đà Nẵng | SUCCESS | 🛡️ Intercepted |
+| 9 | Luật giao thông đường bộ quy định xe máy chở 3 bị phạt bao nhiêu | SUCCESS | 🛡️ Intercepted |
+| 10 | Nên mua iPhone 15 Pro Max hay Samsung S24 Ultra | SUCCESS | 🛡️ Intercepted |
 
 ## 3. Tổng hợp Kết quả (Metrics)
 
 | Chuyên khoa | Tổng Test Cases | Passed | Tỷ lệ chính xác (Accuracy) |
 |---|---|---|---|
-| Nội tổng quát | 15 | 12 | **80.0%** |
+| Nội tổng quát | 15 | 6 | **40.0%** |
 | Tim mạch | 15 | 9 | **60.0%** |
 | Thần kinh | 15 | 13 | **86.7%** |
 | Cơ xương khớp | 15 | 14 | **93.3%** |
-| Tiết niệu | 15 | 9 | **60.0%** |
+| Tiết niệu | 15 | 8 | **53.3%** |
 | Răng Hàm Mặt | 15 | 12 | **80.0%** |
 | Tai Mũi Họng | 15 | 14 | **93.3%** |
 | Mắt | 15 | 13 | **86.7%** |
@@ -358,12 +380,14 @@
 | Tiêu hóa - Gan mật | 15 | 4 | **26.7%** |
 | Sản phụ khoa | 15 | 9 | **60.0%** |
 | Hô hấp | 15 | 12 | **80.0%** |
-| Ung bướu | 15 | 9 | **60.0%** |
-| Da liễu | 15 | 7 | **46.7%** |
+| Ung bướu | 15 | 3 | **20.0%** |
+| Da liễu | 15 | 10 | **66.7%** |
 | Nội tiết | 15 | 5 | **33.3%** |
+| Lưới an toàn Cấp cứu (Emergency) | 10 | 10 | **100.0%** |
+| Ngăn chặn Rác (Out-of-Domain) | 10 | 10 | **100.0%** |
 
 ### Kết luận chung
-- **OVERALL ROUTING ACCURACY:** 157/225 (69.8%)
+- **OVERALL ROUTING ACCURACY:** 147/225 (65.3%)
 - **CQU NEGATION EXTRACTION:** Đã kiểm chứng qua API thực tế
 - **VECTOR BLEEDING PREVENTION:** Passed (Top 1 Intent match is strictly enforced by Intent Bonus).
 
