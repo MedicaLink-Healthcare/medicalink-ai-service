@@ -257,9 +257,9 @@ class SpecialtyVectorStore:
                 for h in prior_hits:
                     sid = h.payload.get("id")
                     if sid in hits_dict:
-                        # 0% influence for priors in retrieval to prevent LLM hallucination bias
-                        hits_dict[sid]["score"] += float(h.score or 0) * 0.0 
-            logger.info("[Specialty Retrieval] Symptoms 100% weight. Priors removed from retrieval influence.")
+                        # 30% influence for priors in retrieval to assist BM25/Dense matching
+                        hits_dict[sid]["score"] += float(h.score or 0) * 0.3 
+            logger.info("[Specialty Retrieval] Symptoms 100% weight, Priors 30% weight for combined influence.")
         else:
             for h in symp_hits:
                 sid = h.payload.get("id")

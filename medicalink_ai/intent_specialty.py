@@ -188,11 +188,15 @@ async def suggest_specialties_from_catalog(
     # 3. Semantic Vector Routing (Hybrid)
     if specialty_store and extracted_symptoms:
         query_text = ", ".join(extracted_symptoms)
-        prior_text = ", ".join([str(x) for x in common_priors + dangerous_priors if str(x).strip()])
+        # Include demographic in prior text to help vector store match demographic-specific specialties (e.g., Nhi khoa)
+        prior_context = common_priors + dangerous_priors
+        if patient_demographic:
+            prior_context.append(patient_demographic)
+        prior_text = ", ".join([str(x) for x in prior_context if str(x).strip()])
         
         try:
-            # 0% Prior Influence: Completely rely on pure Symptom embedding for Retrieval (RAG-centric)
-            hits = await specialty_store.search_specialties(query_symptoms=query_text, query_priors="", limit=5)
+            # Restore Prior Influence: Use the AI's clinical context (common_priors, dangerous_priors) to assist retrieval
+            hits = await specialty_store.search_specialties(query_symptoms=query_text, query_priors=prior_text, limit=5)
             if hits:
                 confidence = hits[0].get("confidence_score", 0.0)
                 
@@ -231,30 +235,6 @@ async def suggest_specialties_from_catalog(
                     
         except Exception as e:
             logger.error("Semantic search failed, fallback to none: %s", e)
-
-    # 4.5 Demographic & Domain Rule-based Overrides (Fixing Semantic Shortcomings)
-    demo_lower = patient_demographic.lower()
-    query_lower = symptoms.lower()
-    
-    nhi_khoa_id = next((c["id"] for c in catalog if "nhi" in c.get("name", "").lower()), None)
-    san_phu_khoa_id = next((c["id"] for c in catalog if "sản" in c.get("name", "").lower() or "phụ khoa" in c.get("name", "").lower()), None)
-    noi_tong_quat_id = next((c["id"] for c in catalog if "tổng quát" in c.get("name", "").lower() or "gia đình" in c.get("name", "").lower()), None)
-    
-    # Rule 1: Nhi khoa (Pediatrics) - Triggered by demographic or strong keywords
-    child_words = ["trẻ", "bé", "con tôi", "cháu", "sơ sinh"]
-    if nhi_khoa_id and any(w in demo_lower for w in child_words) or any(f" {w} " in f" {query_lower} " for w in child_words):
-        if nhi_khoa_id in out_ids:
-            out_ids.remove(nhi_khoa_id)
-        out_ids.insert(0, nhi_khoa_id)
-        logger.info("[Rule Override] Forced Nhi Khoa (Pediatrics) based on demographic keywords.")
-        
-    # Rule 2: Sản phụ khoa (Obstetrics & Gynecology)
-    obgyn_words = ["kinh nguyệt", "mang thai", "vùng kín", "âm đạo", "tử cung", "trễ kinh", "có thai", "buồng trứng", "huyết trắng", "khí hư", "que 2 vạch", "phụ khoa"]
-    if san_phu_khoa_id and any(w in query_lower for w in obgyn_words):
-        if san_phu_khoa_id in out_ids:
-            out_ids.remove(san_phu_khoa_id)
-        out_ids.insert(0, san_phu_khoa_id)
-        logger.info("[Rule Override] Forced Sản phụ khoa based on domain-specific keywords.")
 
 
 
