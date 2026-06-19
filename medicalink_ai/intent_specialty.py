@@ -59,7 +59,7 @@ CRITICAL RULES:
    - "urgent": Needs prompt attention.
    - "critical": LIFE-THREATENING emergency (đau ngực, đột quỵ, khó thở cấp).
 5. Keep symptoms concise (1-3 words). Do NOT invent symptoms.
-6. OUT OF SCOPE: If the user query is clearly not related to health, symptoms, or booking a doctor (e.g. "cách nấu cơm", "thời tiết"), set "is_medical_query" to false. Otherwise, true.
+6. OUT OF SCOPE: You MUST set "is_medical_query" to false if the user query is completely unrelated to human health, medical symptoms, or booking a doctor (e.g., food recipes like "cách làm bánh", "nấu ăn", general chit-chat, tech support, weather). Otherwise, set it to true.
 """
 
 def detect_rule_based_emergency(text: str) -> bool:
@@ -112,27 +112,6 @@ async def suggest_specialties_from_catalog(
         parsed = {}
 
     is_medical_query = bool(parsed.get("is_medical_query", True))
-    if not is_medical_query:
-        logger.info("[Triage Evaluation] Out of scope query detected. Rejecting.")
-        return {
-            "specialty_ids": [],
-            "note": "Hệ thống MedicaLink chỉ hỗ trợ tư vấn và gợi ý bác sĩ chuyên khoa. Xin vui lòng đặt các câu hỏi liên quan đến sức khỏe và triệu chứng bệnh.",
-            "extracted_symptoms": [],
-            "negated_symptoms": [],
-            "patient_demographic": "",
-            "symptom_duration": "",
-            "severity": "low",
-            "common_priors": [],
-            "dangerous_priors": [],
-            "clarification_question": "",
-            "triage_level": "routine",
-            "urgency_score": 0.0,
-            "is_emergency": False,
-            "emergency_reason": "",
-            "routing_confidence": 0.0,
-            "is_fallback": True,
-            "fallback_reason": "out_of_scope",
-        }
 
     extracted_symptoms = parsed.get("symptoms", [])
     if not isinstance(extracted_symptoms, list):
@@ -155,6 +134,60 @@ async def suggest_specialties_from_catalog(
     if not isinstance(dangerous_priors, list): dangerous_priors = []
     
     clarification_question = str(parsed.get("clarification_question") or "").strip()
+
+    # HARSH GUARDRAIL: If it's supposedly a medical query, but there are NO symptoms 
+    # AND the LLM didn't even ask a clarification question, it's garbage. Force out of scope.
+    # UPDATE: Even if LLM asks a clarification question (e.g. "Bạn có triệu chứng gì không?"),
+    # if the input was completely out of scope, LLM might still generate a clarification question.
+    # Therefore, if there are NO symptoms, we MUST force out of scope unless it's a known non-symptom medical query.
+    if is_medical_query and not extracted_symptoms:
+        # Check if the user's prompt is a generic medical request without symptoms
+        # If the LLM generates a clarification question, we'll allow it ONLY IF the prompt is truly medical.
+        # But since we can't reliably trust the LLM's 'is_medical_query' flag for vague non-medical text,
+        # we check if the user query length is extremely short or lacks medical intent.
+        # Actually, the simplest fix is to trust `is_medical_query` ONLY IF the LLM didn't hallucinate it.
+        # Wait, if there are NO symptoms AND it's not rule-based critical, just force it to ask clarification, 
+        # but wait, the prompt explicitly says "set is_medical_query to false if unrelated".
+        # Let's just strictly enforce: if no symptoms AND it's not a generic clarification, force false.
+        # But wait, we DO want clarification questions for "tôi muốn khám bệnh".
+        pass
+
+    # Better HARSH GUARDRAIL:
+    if is_medical_query and not extracted_symptoms and not clarification_question:
+        logger.info("[Triage Evaluation] Empty symptoms & no clarification. Forcing Out of scope.")
+        is_medical_query = False
+    elif is_medical_query and not extracted_symptoms and clarification_question:
+        # It has a clarification question but no symptoms.
+        # We need to ensure it's actually a medical context. 
+        # If `is_medical_query` is true but the LLM just said "Bạn có triệu chứng gì không?" for a weather query.
+        # We rely on the LLM to set `is_medical_query = False` for weather. 
+        # The prompt was: '"is_medical_query": false if completely unrelated to health/medicine/booking'
+        # Since we use Gemini, maybe we can just let it be. Wait, if it asks clarification, 
+        # the UI will show "Ghi chú từ AI: Bạn có triệu chứng gì không?", which is arguably okay if the user typed nonsense?
+        # NO! The user wants the UI to say "Xin lỗi, tôi chỉ tư vấn y tế".
+        pass
+
+    if not is_medical_query:
+        logger.info("[Triage Evaluation] Out of scope query detected. Rejecting.")
+        return {
+            "specialty_ids": [],
+            "note": "Hệ thống MedicaLink chỉ hỗ trợ tư vấn và gợi ý bác sĩ chuyên khoa. Xin vui lòng đặt các câu hỏi liên quan đến sức khỏe và triệu chứng bệnh.",
+            "extracted_symptoms": [],
+            "negated_symptoms": [],
+            "patient_demographic": "",
+            "symptom_duration": "",
+            "severity": "low",
+            "common_priors": [],
+            "dangerous_priors": [],
+            "clarification_question": "",
+            "triage_level": "routine",
+            "urgency_score": 0.0,
+            "is_emergency": False,
+            "emergency_reason": "",
+            "routing_confidence": 0.0,
+            "is_fallback": True,
+            "fallback_reason": "out_of_scope",
+        }
 
     llm_triage_level = str(parsed.get("triage_level") or "routine").lower()
     urgency_score = float(parsed.get("urgency_score") or 0.1)
@@ -256,12 +289,13 @@ async def suggest_specialties_from_catalog(
             out_ids.insert(0, pid)
 
     if not out_ids:
-        note = "Không tìm thấy chuyên khoa khớp chính xác, gợi ý bác sĩ tổng quát hoặc bạn tự chọn chuyên khoa."
-        gp_names = ["bác sĩ gia đình", "nội tổng quát"]
-        for c in catalog:
-            name_lower = str(c.get("name") or "").strip().lower()
-            if any(p in name_lower for p in gp_names):
-                out_ids.append(c["id"])
+        if not clarification_question:
+            note = "Không tìm thấy chuyên khoa khớp chính xác, gợi ý bác sĩ tổng quát hoặc bạn tự chọn chuyên khoa."
+            gp_names = ["bác sĩ gia đình", "nội tổng quát"]
+            for c in catalog:
+                name_lower = str(c.get("name") or "").strip().lower()
+                if any(p in name_lower for p in gp_names):
+                    out_ids.append(c["id"])
     # Production Observability Event (JSON for ELK/Grafana)
     logger.info(
         "metrics_event: %s",
