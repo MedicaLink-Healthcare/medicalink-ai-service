@@ -1,6 +1,9 @@
-# Báo cáo Benchmark Kiến trúc RAG (Top-5 Hit Rate)
+# Báo cáo Benchmark Kiến trúc RAG (Top-5 Hit Rate & MRR)
     
 - **Tổng số Test Cases (Lâm sàng)**: 225
-- **Dense Vector**: 60.9% (137/225)
-- **Sparse Vector**: 77.3% (174/225)
-- **Hybrid RAG**: 79.1% (178/225)
+
+| Phương pháp | HitRate@5 | MRR |
+|---|---|---|
+| **Dense Vector** | 61.3% (138/225) | 0.525 |
+| **Sparse Vector** | 76.9% (173/225) | 0.636 |
+| **Hybrid RAG** | 80.0% (180/225) | 0.632 |

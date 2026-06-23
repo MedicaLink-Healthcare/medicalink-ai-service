@@ -44,6 +44,11 @@ async def run_benchmark():
     dense_passed = 0
     sparse_passed = 0
     hybrid_passed = 0
+    
+    dense_mrr = 0.0
+    sparse_mrr = 0.0
+    hybrid_mrr = 0.0
+    
     total_cases = 0
 
     print("\nĐang tiến hành Benchmark Định tuyến (Routing Evaluation)...\n")
@@ -76,9 +81,11 @@ async def run_benchmark():
                 with_payload=True
             )
             dense_specs = [p.payload.get("specialty_ids", []) for p in dense_res.points]
-            flat_dense = [item for sublist in dense_specs for item in sublist]
-            if spec_id in flat_dense:
-                dense_passed += 1
+            for rank, specs in enumerate(dense_specs):
+                if spec_id in specs:
+                    dense_passed += 1
+                    dense_mrr += 1.0 / (rank + 1)
+                    break
 
             # 2. SPARSE ONLY
             sparse_res = await q_client.query_points(
@@ -90,9 +97,11 @@ async def run_benchmark():
                 with_payload=True
             )
             sparse_specs = [p.payload.get("specialty_ids", []) for p in sparse_res.points]
-            flat_sparse = [item for sublist in sparse_specs for item in sublist]
-            if spec_id in flat_sparse:
-                sparse_passed += 1
+            for rank, specs in enumerate(sparse_specs):
+                if spec_id in specs:
+                    sparse_passed += 1
+                    sparse_mrr += 1.0 / (rank + 1)
+                    break
 
             # 3. HYBRID RRF
             hybrid_res = await q_client.query_points(
@@ -106,9 +115,11 @@ async def run_benchmark():
                 with_payload=True
             )
             hybrid_specs = [p.payload.get("specialty_ids", []) for p in hybrid_res.points]
-            flat_hybrid = [item for sublist in hybrid_specs for item in sublist]
-            if spec_id in flat_hybrid:
-                hybrid_passed += 1
+            for rank, specs in enumerate(hybrid_specs):
+                if spec_id in specs:
+                    hybrid_passed += 1
+                    hybrid_mrr += 1.0 / (rank + 1)
+                    break
 
     print("=" * 60)
     print("KẾT QUẢ BENCHMARK (TOP-5 HIT RATE)")
@@ -119,17 +130,24 @@ async def run_benchmark():
     acc_sparse = (sparse_passed / total_cases) * 100
     acc_hybrid = (hybrid_passed / total_cases) * 100
     
-    print(f" - Dense Vector Only: {dense_passed}/{total_cases} ({acc_dense:.1f}%)")
-    print(f" - Sparse Vector Only: {sparse_passed}/{total_cases} ({acc_sparse:.1f}%)")
-    print(f" - Hybrid RAG (RRF): {hybrid_passed}/{total_cases} ({acc_hybrid:.1f}%)")
+    mrr_dense = dense_mrr / total_cases
+    mrr_sparse = sparse_mrr / total_cases
+    mrr_hybrid = hybrid_mrr / total_cases
+    
+    print(f" - Dense Vector Only: {dense_passed}/{total_cases} ({acc_dense:.1f}%) | MRR: {mrr_dense:.3f}")
+    print(f" - Sparse Vector Only: {sparse_passed}/{total_cases} ({acc_sparse:.1f}%) | MRR: {mrr_sparse:.3f}")
+    print(f" - Hybrid RAG (RRF): {hybrid_passed}/{total_cases} ({acc_hybrid:.1f}%) | MRR: {mrr_hybrid:.3f}")
     
     # Ghi đè vào file markdown kết quả
-    report = f"""# Báo cáo Benchmark Kiến trúc RAG (Top-5 Hit Rate)
+    report = f"""# Báo cáo Benchmark Kiến trúc RAG (Top-5 Hit Rate & MRR)
     
 - **Tổng số Test Cases (Lâm sàng)**: {total_cases}
-- **Dense Vector**: {acc_dense:.1f}% ({dense_passed}/{total_cases})
-- **Sparse Vector**: {acc_sparse:.1f}% ({sparse_passed}/{total_cases})
-- **Hybrid RAG**: {acc_hybrid:.1f}% ({hybrid_passed}/{total_cases})
+
+| Phương pháp | HitRate@5 | MRR |
+|---|---|---|
+| **Dense Vector** | {acc_dense:.1f}% ({dense_passed}/{total_cases}) | {mrr_dense:.3f} |
+| **Sparse Vector** | {acc_sparse:.1f}% ({sparse_passed}/{total_cases}) | {mrr_sparse:.3f} |
+| **Hybrid RAG** | {acc_hybrid:.1f}% ({hybrid_passed}/{total_cases}) | {mrr_hybrid:.3f} |
 """
     with open(os.path.join(os.path.dirname(__file__), "..", "data", "benchmark_results.md"), "w", encoding="utf-8") as f:
         f.write(report)

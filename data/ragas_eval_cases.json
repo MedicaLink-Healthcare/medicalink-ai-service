@@ -1,0 +1,272 @@
+[
+  {
+    "specialty": "Nội tổng quát",
+    "query": "Tôi muốn đăng ký khám sức khỏe tổng quát định kỳ để kiểm tra toàn diện",
+    "type": "Rõ ràng",
+    "reference_answer": "Bạn nên khám Nội tổng quát để được thực hiện các xét nghiệm cơ bản, siêu âm và đánh giá sức khỏe toàn diện định kỳ."
+  },
+  {
+    "specialty": "Nội tổng quát",
+    "query": "Sụt cân nhẹ, người mệt mỏi nhưng không ho không sốt, muốn khám nội khoa chung tìm nguyên nhân",
+    "type": "Chồng lấn",
+    "reference_answer": "Với triệu chứng sụt cân và mệt mỏi không rõ nguyên nhân (không ho, sốt), bạn cần khám Nội tổng quát trước để bác sĩ sàng lọc, chỉ định xét nghiệm máu và hình ảnh nhằm loại trừ các bệnh lý toàn thân."
+  },
+  {
+    "specialty": "Nội tổng quát",
+    "query": "Tôi cảm thấy trong người không được khỏe nhưng không rõ triệu chứng cụ thể, muốn khám tổng quát trước",
+    "type": "Khó",
+    "reference_answer": "Do triệu chứng mơ hồ và không khu trú ở cơ quan nào, khám Nội tổng quát là lựa chọn phù hợp nhất để đánh giá ban đầu và định hướng chuyên khoa sâu nếu cần."
+  },
+  {
+    "specialty": "Tim mạch",
+    "query": "Hồi hộp đánh trống ngực, nhịp tim nhanh lúc nghỉ ngơi",
+    "type": "Rõ ràng",
+    "reference_answer": "Triệu chứng nhịp tim nhanh và đánh trống ngực lúc nghỉ ngơi là dấu hiệu điển hình của bệnh lý rối loạn nhịp tim. Bạn cần khám chuyên khoa Tim mạch để được đo điện tâm đồ và siêu âm tim."
+  },
+  {
+    "specialty": "Tim mạch",
+    "query": "Ngực trái hay bị nhói đau lan ra cánh tay và sau lưng",
+    "type": "Chồng lấn",
+    "reference_answer": "Đau nhói ngực trái lan ra tay và lưng là dấu hiệu nguy hiểm cảnh báo bệnh lý mạch vành (thiếu máu cơ tim). Khám Tim mạch là ưu tiên hàng đầu để loại trừ rủi ro nhồi máu cơ tim."
+  },
+  {
+    "specialty": "Tim mạch",
+    "query": "Chân tôi dạo này bị phù nề, ấn vào lõm, hay khó thở khi nằm",
+    "type": "Khó",
+    "reference_answer": "Triệu chứng phù chân ấn lõm kèm khó thở khi nằm thường liên quan đến tình trạng suy tim ứ huyết. Bạn cần khám Tim mạch để bác sĩ đánh giá chức năng bơm máu của tim."
+  },
+  {
+    "specialty": "Thần kinh",
+    "query": "Mất ngủ kéo dài, trí nhớ giảm sút nghiêm trọng, hay quên",
+    "type": "Rõ ràng",
+    "reference_answer": "Mất ngủ mạn tính đi kèm suy giảm trí nhớ cần được đánh giá bởi bác sĩ Nội Thần kinh để tìm nguyên nhân tổn thương thực thể hoặc thoái hóa tế bào não."
+  },
+  {
+    "specialty": "Thần kinh",
+    "query": "Tay chân hay bị tê rần, đôi lúc run tay khi cầm nắm đồ vật",
+    "type": "Chồng lấn",
+    "reference_answer": "Triệu chứng tê bì tay chân và run tay khi cầm nắm liên quan đến các rễ dây thần kinh ngoại biên hoặc bệnh lý hệ thần kinh vận động. Bạn cần khám chuyên khoa Thần kinh."
+  },
+  {
+    "specialty": "Thần kinh",
+    "query": "Hay bị choáng váng, xây xẩm mặt mày, cảm giác đi không vững",
+    "type": "Khó",
+    "reference_answer": "Choáng váng, đi không vững có thể do rối loạn tiền đình hoặc thiểu năng tuần hoàn não. Bác sĩ Thần kinh sẽ giúp thăm khám và xác định nguyên nhân."
+  },
+  {
+    "specialty": "Cơ xương khớp",
+    "query": "Đau nhức hai khớp gối khi đi lại nhiều, kêu lạo xạo",
+    "type": "Rõ ràng",
+    "reference_answer": "Triệu chứng đau và kêu lạo xạo ở khớp gối khi vận động là dấu hiệu thoái hóa khớp gối. Khám Cơ xương khớp là phù hợp nhất để đánh giá mức độ thoái hóa."
+  },
+  {
+    "specialty": "Cơ xương khớp",
+    "query": "Đau thắt lưng lan xuống chân trái, ngồi lâu rất buốt",
+    "type": "Chồng lấn",
+    "reference_answer": "Đau thắt lưng lan xuống chân là dấu hiệu chèn ép rễ thần kinh (như thoát vị đĩa đệm). Cần khám Cơ xương khớp hoặc Cột sống để chụp MRI và điều trị."
+  },
+  {
+    "specialty": "Cơ xương khớp",
+    "query": "Khớp ngón chân cái sưng tấy đỏ, đau nhức khủng khiếp sau khi ăn hải sản",
+    "type": "Khó",
+    "reference_answer": "Sưng đau dữ dội khớp ngón chân cái sau khi ăn hải sản là biểu hiện cấp tính của bệnh Gout. Bạn cần khám Cơ xương khớp để xét nghiệm acid uric và dùng thuốc giảm đau đặc hiệu."
+  },
+  {
+    "specialty": "Tiết niệu",
+    "query": "Đi tiểu buốt, dắt, nước tiểu có lẫn máu tươi",
+    "type": "Rõ ràng",
+    "reference_answer": "Tiểu buốt, dắt và tiểu máu là triệu chứng của nhiễm trùng đường tiết niệu hoặc sỏi tiết niệu. Cần khám chuyên khoa Tiết niệu để xét nghiệm nước tiểu và siêu âm."
+  },
+  {
+    "specialty": "Tiết niệu",
+    "query": "Đau quặn hông lưng phải, lan xuống bụng dưới",
+    "type": "Chồng lấn",
+    "reference_answer": "Cơn đau quặn từ hông lưng lan xuống bụng dưới rất đặc trưng cho sỏi niệu quản di chuyển. Bạn cần khám Tiết niệu để can thiệp kịp thời."
+  },
+  {
+    "specialty": "Tiết niệu",
+    "query": "Nam giới 60 tuổi, đi tiểu phải rặn mạnh, tia nước yếu",
+    "type": "Khó",
+    "reference_answer": "Ở nam giới lớn tuổi, tiểu khó và tia nước yếu thường do phì đại tuyến tiền liệt chèn ép niệu đạo. Bác sĩ Tiết niệu sẽ siêu âm và đánh giá kích thước tuyến."
+  },
+  {
+    "specialty": "Răng Hàm Mặt",
+    "query": "Đau nhức răng hàm dưới, nướu sưng đỏ, nhai thức ăn rất buốt",
+    "type": "Rõ ràng",
+    "reference_answer": "Đau nhức răng hàm kèm sưng nướu là biểu hiện viêm tủy hoặc viêm nha chu. Khám Răng Hàm Mặt là chỉ định bắt buộc."
+  },
+  {
+    "specialty": "Răng Hàm Mặt",
+    "query": "Răng khôn mọc lệch đâm vào má, đau nhức liên tục",
+    "type": "Chồng lấn",
+    "reference_answer": "Răng khôn mọc lệch gây tổn thương mô mềm cần được bác sĩ Răng Hàm Mặt nhổ bỏ để tránh biến chứng viêm nhiễm."
+  },
+  {
+    "specialty": "Răng Hàm Mặt",
+    "query": "Khớp thái dương hàm hay kêu lục cục khi há miệng to",
+    "type": "Khó",
+    "reference_answer": "Tiếng kêu ở khớp thái dương hàm khi há miệng liên quan đến rối loạn khớp cắn hoặc thoái hóa khớp thái dương hàm. Cần bác sĩ Răng Hàm Mặt chuyên sâu thăm khám."
+  },
+  {
+    "specialty": "Tai Mũi Họng",
+    "query": "Ngạt mũi kéo dài, chảy dịch vàng, đau nhức vùng trán",
+    "type": "Rõ ràng",
+    "reference_answer": "Ngạt mũi, dịch vàng và đau trán là triệu chứng viêm xoang cấp/mạn tính. Khám Tai Mũi Họng để nội soi và làm sạch dịch."
+  },
+  {
+    "specialty": "Tai Mũi Họng",
+    "query": "Ù tai, nghe kém, thỉnh choáng chóng mặt",
+    "type": "Chồng lấn",
+    "reference_answer": "Ù tai, nghe kém kèm chóng mặt có thể do hội chứng Ménière hoặc viêm tai trong. Bác sĩ Tai Mũi Họng sẽ nội soi tai và đo thính lực."
+  },
+  {
+    "specialty": "Tai Mũi Họng",
+    "query": "Cảm giác có cục gì vướng ở cổ họng, khạc không ra nuốt không trôi",
+    "type": "Khó",
+    "reference_answer": "Cảm giác vướng họng (loạn cảm họng) có thể do trào ngược dạ dày thực quản hoặc viêm họng mạn. Cần nội soi Tai Mũi Họng trước để loại trừ khối u."
+  },
+  {
+    "specialty": "Mắt",
+    "query": "Mắt nhìn mờ đi nhiều, cảm giác như có màn sương che trước mắt",
+    "type": "Rõ ràng",
+    "reference_answer": "Nhìn mờ như có màng sương là dấu hiệu đục thủy tinh thể, thường gặp ở người lớn tuổi. Khám Mắt để kiểm tra đáy mắt và thủy tinh thể."
+  },
+  {
+    "specialty": "Mắt",
+    "query": "Đỏ mắt, cộm ngứa, chảy nhiều nước mắt, ra gỉ mắt nhiều vào buổi sáng",
+    "type": "Chồng lấn",
+    "reference_answer": "Đỏ mắt, có gỉ và ngứa là biểu hiện của viêm kết mạc (đau mắt đỏ). Bạn cần khám Mắt để được kê thuốc nhỏ phù hợp."
+  },
+  {
+    "specialty": "Mắt",
+    "query": "Bố tôi bị tiểu đường, dạo này kêu mắt mờ không thấy rõ",
+    "type": "Khó",
+    "reference_answer": "Bệnh nhân tiểu đường có nguy cơ cao biến chứng võng mạc tiểu đường. Cần soi đáy mắt bởi bác sĩ chuyên khoa Mắt để ngăn ngừa mù lòa."
+  },
+  {
+    "specialty": "Nhi khoa",
+    "query": "Bé 3 tuổi sốt cao 39 độ, ho đờm, bỏ bú",
+    "type": "Rõ ràng",
+    "reference_answer": "Trẻ nhỏ sốt cao kèm ho đờm, bỏ bú là dấu hiệu viêm đường hô hấp. Cần khám Nhi khoa ngay để hạ sốt và điều trị."
+  },
+  {
+    "specialty": "Nhi khoa",
+    "query": "Trẻ đi ngoài phân lỏng, nôn trớ nhiều sau khi ăn",
+    "type": "Chồng lấn",
+    "reference_answer": "Trẻ nôn trớ và tiêu chảy liên tục dễ dẫn đến mất nước do rối loạn tiêu hóa. Khám Nhi khoa để đánh giá mức độ mất nước."
+  },
+  {
+    "specialty": "Nhi khoa",
+    "query": "Bé bị mẩn ngứa thành từng mảng lớn ở hai má và khuỷu tay",
+    "type": "Khó",
+    "reference_answer": "Triệu chứng mẩn ngứa ở má và vùng nếp gấp của trẻ nhỏ rất điển hình cho viêm da cơ địa (chàm sữa). Bác sĩ Nhi khoa hoặc Da liễu Nhi sẽ giúp điều trị."
+  },
+  {
+    "specialty": "Tiêu hóa - Gan mật",
+    "query": "Đau rát vùng thượng vị, hay bị đầy hơi chướng bụng sau ăn",
+    "type": "Rõ ràng",
+    "reference_answer": "Đau rát thượng vị kèm đầy hơi là biểu hiện viêm loét dạ dày tá tràng. Bác sĩ Tiêu hóa sẽ khám và có thể chỉ định nội soi dạ dày."
+  },
+  {
+    "specialty": "Tiêu hóa - Gan mật",
+    "query": "Thường xuyên có cảm giác buồn nôn khi ngửi mùi thức ăn, da hơi vàng",
+    "type": "Chồng lấn",
+    "reference_answer": "Vàng da kèm buồn nôn gợi ý bệnh lý về gan mật (viêm gan, tắc mật). Bạn cần khám Tiêu hóa - Gan mật để siêu âm gan và xét nghiệm men gan."
+  },
+  {
+    "specialty": "Tiêu hóa - Gan mật",
+    "query": "Sụt cân nhanh, đau âm ỉ hố chậu trái, hay bị táo bón xen lẫn tiêu chảy",
+    "type": "Khó",
+    "reference_answer": "Sụt cân kèm thay đổi thói quen đi tiêu ở người lớn tuổi là dấu hiệu báo động cần loại trừ khối u đại trực tràng. Bác sĩ Tiêu hóa sẽ nội soi đại tràng."
+  },
+  {
+    "specialty": "Sản phụ khoa",
+    "query": "Rối loạn kinh nguyệt nhiều tháng nay, hay đau quặn bụng dưới",
+    "type": "Rõ ràng",
+    "reference_answer": "Kinh nguyệt không đều và đau quặn bụng dưới có thể do u nang buồng trứng hoặc rối loạn nội tiết. Cần khám Phụ khoa để siêu âm tử cung."
+  },
+  {
+    "specialty": "Sản phụ khoa",
+    "query": "Ngứa rát vùng kín, ra khí hư có mùi hôi",
+    "type": "Chồng lấn",
+    "reference_answer": "Ngứa và khí hư bất thường là triệu chứng viêm nhiễm âm đạo, cổ tử cung. Khám Phụ khoa để soi tươi khí hư và đặt thuốc điều trị."
+  },
+  {
+    "specialty": "Sản phụ khoa",
+    "query": "Phụ nữ 50 tuổi bị bốc hỏa, mất ngủ, chu kỳ kinh rất thưa",
+    "type": "Khó",
+    "reference_answer": "Các triệu chứng bốc hỏa, kinh thưa ở độ tuổi 50 là dấu hiệu của giai đoạn tiền mãn kinh/mãn kinh. Khám Sản phụ khoa để tư vấn liệu pháp giảm triệu chứng."
+  },
+  {
+    "specialty": "Hô hấp",
+    "query": "Ho khan dai dẳng suốt cả tháng trời, ngứa rát họng",
+    "type": "Rõ ràng",
+    "reference_answer": "Ho khan kéo dài không khỏi cần loại trừ các nguyên nhân từ phổi hoặc phế quản. Khám chuyên khoa Hô hấp để chụp X-quang phổi."
+  },
+  {
+    "specialty": "Hô hấp",
+    "query": "Khó thở khi nằm, ho có đờm xanh, có hút thuốc 10 năm",
+    "type": "Chồng lấn",
+    "reference_answer": "Tiền sử hút thuốc kèm ho đờm, khó thở là yếu tố nguy cơ của viêm phế quản mạn tính hoặc bệnh phổi tắc nghẽn mạn tính (COPD). Cần khám Hô hấp để kiểm tra."
+  },
+  {
+    "specialty": "Hô hấp",
+    "query": "Cơn hen phế quản tái phát lúc chuyển trời, dùng thuốc xịt mới đỡ",
+    "type": "Khó",
+    "reference_answer": "Hen phế quản dễ bị kích phát do thời tiết. Cần bác sĩ chuyên khoa Hô hấp theo dõi, điều chỉnh liều lượng thuốc dự phòng để kiểm soát cơn hen."
+  },
+  {
+    "specialty": "Ung bướu",
+    "query": "Sờ thấy cục cứng ở ngực trái, không đau nhưng phát triển nhanh",
+    "type": "Rõ ràng",
+    "reference_answer": "Khối u cứng phát triển nhanh, không đau ở vú là dấu hiệu nguy hiểm cần tầm soát ung thư vú. Khám chuyên khoa Ung bướu để sinh thiết."
+  },
+  {
+    "specialty": "Ung bướu",
+    "query": "Ho ra máu lượng ít nhưng thường xuyên, sụt 5kg trong 1 tháng",
+    "type": "Chồng lấn",
+    "reference_answer": "Ho ra máu kèm sụt cân nhanh chóng rất đáng lo ngại, có thể liên quan đến khối u ác tính ở phổi. Bạn cần khám Ung bướu hoặc Hô hấp lập tức."
+  },
+  {
+    "specialty": "Ung bướu",
+    "query": "Nốt ruồi bỗng nhiên ngứa rỉ máu, bờ không đều",
+    "type": "Khó",
+    "reference_answer": "Nốt ruồi biến đổi về kích thước, bờ không đều và chảy máu là dấu hiệu nghi ngờ ung thư hắc tố da. Cần sinh thiết tại chuyên khoa Ung bướu."
+  },
+  {
+    "specialty": "Da liễu",
+    "query": "Nổi mẩn ngứa khắp người sau khi ăn hải sản",
+    "type": "Rõ ràng",
+    "reference_answer": "Đây là tình trạng mề đay dị ứng cấp tính do thức ăn. Khám Da liễu để được kê thuốc kháng histamin giúp giảm ngứa nhanh chóng."
+  },
+  {
+    "specialty": "Da liễu",
+    "query": "Da bị tróc vảy trắng, ngứa ngáy dữ dội ở vùng khuỷu tay, đầu gối",
+    "type": "Chồng lấn",
+    "reference_answer": "Tróc vảy trắng khu trú ở tỳ đè (khuỷu tay, gót) là biểu hiện đặc trưng của bệnh vảy nến. Cần bác sĩ Da liễu thăm khám và hướng dẫn điều trị đặc hiệu."
+  },
+  {
+    "specialty": "Da liễu",
+    "query": "Rụng tóc từng mảng lớn trên đỉnh đầu, thấy rõ cả da đầu",
+    "type": "Khó",
+    "reference_answer": "Rụng tóc từng mảng có thể do nấm da đầu hoặc tự miễn. Bạn cần khám Da liễu để soi da đầu và tìm nguyên nhân điều trị."
+  },
+  {
+    "specialty": "Nội tiết",
+    "query": "Khát nước liên tục, đi tiểu nhiều, sụt cân dù ăn nhiều",
+    "type": "Rõ ràng",
+    "reference_answer": "Khát nhiều, tiểu nhiều, ăn nhiều và gầy sút cân là biểu hiện kinh điển của bệnh đái tháo đường. Cần khám Nội tiết để đo đường máu chẩn đoán xác định."
+  },
+  {
+    "specialty": "Nội tiết",
+    "query": "Cổ to ra, hay run tay, nhịp tim nhanh, vã mồ hôi",
+    "type": "Chồng lấn",
+    "reference_answer": "Bướu cổ kèm run tay, tim đập nhanh gợi ý tình trạng cường giáp (Basedow). Bác sĩ Nội tiết sẽ siêu âm tuyến giáp và làm xét nghiệm hormone."
+  },
+  {
+    "specialty": "Nội tiết",
+    "query": "Chỉ số đường huyết buổi sáng đo được 8.5 mmol/l, hay bị tê ngón chân",
+    "type": "Khó",
+    "reference_answer": "Đường huyết cao kèm tê ngón chân là biến chứng thần kinh ngoại biên của đái tháo đường. Bạn cần khám Nội tiết để đánh giá biến chứng và chỉnh thuốc."
+  }
+]
