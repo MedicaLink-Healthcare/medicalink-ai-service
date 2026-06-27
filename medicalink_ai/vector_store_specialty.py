@@ -211,7 +211,7 @@ class SpecialtyVectorStore:
         """Returns top K specialties using Weighted Hybrid Fusion (Symptoms 75% + Priors 25%)."""
         await self.ensure_collection()
         
-        if not query_symptoms.strip():
+        if not query_symptoms.strip() and not query_priors.strip():
             return []
             
         async def perform_search(query_text: str) -> list[Any]:
@@ -241,30 +241,27 @@ class SpecialtyVectorStore:
         hits_dict = {}
         
         # 1. Search Symptoms (Weight 1.0)
-        symp_hits = await perform_search(query_symptoms)
+        symp_hits = []
+        if query_symptoms.strip():
+            symp_hits = await perform_search(query_symptoms)
+            for h in symp_hits:
+                sid = h.payload.get("id")
+                if sid:
+                    hits_dict[sid] = {"payload": h.payload, "score": float(h.score or 0) * 1.0}
         
-        # 2. Search Priors (Weight 0.0)
+        # 2. Search Priors (Weight 0.8)
         if query_priors.strip():
             prior_hits = await perform_search(query_priors)
-            
-            hits_dict = {}
-            for h in symp_hits:
+            for h in prior_hits:
                 sid = h.payload.get("id")
                 if sid:
-                    hits_dict[sid] = {"payload": h.payload, "score": float(h.score or 0) * 1.0}
-            
-            if prior_hits:
-                for h in prior_hits:
-                    sid = h.payload.get("id")
                     if sid in hits_dict:
-                        # 30% influence for priors in retrieval to assist BM25/Dense matching
-                        hits_dict[sid]["score"] += float(h.score or 0) * 0.3 
-            logger.info("[Specialty Retrieval] Symptoms 100% weight, Priors 30% weight for combined influence.")
+                        # 80% influence for priors in retrieval to assist BM25/Dense matching
+                        hits_dict[sid]["score"] += float(h.score or 0) * 0.8 
+                    else:
+                        hits_dict[sid] = {"payload": h.payload, "score": float(h.score or 0) * 0.8}
+            logger.info("[Specialty Retrieval] Symptoms 100% weight, Priors 80% weight for combined influence.")
         else:
-            for h in symp_hits:
-                sid = h.payload.get("id")
-                if sid:
-                    hits_dict[sid] = {"payload": h.payload, "score": float(h.score or 0) * 1.0}
             logger.info("[Specialty Retrieval] Symptoms only used (no priors).")
 
         # 3. Sort by final score

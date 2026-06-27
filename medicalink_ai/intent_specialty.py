@@ -50,7 +50,7 @@ CRITICAL RULES:
    - `duration`: Extract the duration of the symptoms if mentioned.
    - `patient_demographic`: Extract age, gender, or patient type (e.g. "bé nhà tôi", "trẻ em") if mentioned.
 2. CLINICAL PRIORS: 
-   - `common_priors`: List 1-2 most statistically probable common conditions for these symptoms (e.g., "trào ngược dạ dày", "viêm họng").
+   - `common_priors`: List 1-2 most statistically probable common conditions for these symptoms (e.g., "trào ngược dạ dày", "viêm họng"). IMPORTANT: If the user explicitly states a diagnosed medical condition or disease (e.g., "K đại tràng", "tiểu đường"), MUST include it here even if no symptoms are mentioned.
    - `dangerous_priors`: List 1 worst-case life-threatening condition to rule out (e.g., "ung thư phổi").
    - Consider `patient_demographic` when generating priors.
 3. CLARIFICATION: If symptoms are too vague (e.g., "đau bụng", "mệt"), generate a short `clarification_question` to ask the patient for more details.
@@ -59,7 +59,7 @@ CRITICAL RULES:
    - "urgent": Needs prompt attention.
    - "critical": LIFE-THREATENING emergency (đau ngực, đột quỵ, khó thở cấp).
 5. Keep symptoms concise (1-3 words). Do NOT invent symptoms.
-6. OUT OF SCOPE: You MUST set "is_medical_query" to false if the user query is completely unrelated to human health, medical symptoms, or booking a doctor (e.g., food recipes like "cách làm bánh", "nấu ăn", general chit-chat, tech support, weather). Otherwise, set it to true.
+6. OUT OF SCOPE: You MUST set "is_medical_query" to false if the user query is completely unrelated to human health, medical symptoms, diseases, or booking a doctor (e.g., food recipes like "cách làm bánh", "nấu ăn", general chit-chat, tech support, weather). Otherwise, set it to true.
 """
 
 def detect_rule_based_emergency(text: str) -> bool:
@@ -107,6 +107,7 @@ async def suggest_specialties_from_catalog(
             )
             raw = completion.choices[0].message.content or "{}"
         parsed = json.loads(raw)
+        print("LLM JSON:", json.dumps(parsed, ensure_ascii=False, indent=2))
     except Exception as e:
         logger.warning("Symptom extraction failed: %s", e)
         parsed = {}
@@ -153,10 +154,11 @@ async def suggest_specialties_from_catalog(
         pass
 
     # Better HARSH GUARDRAIL:
-    if is_medical_query and not extracted_symptoms and not clarification_question:
-        logger.info("[Triage Evaluation] Empty symptoms & no clarification. Forcing Out of scope.")
+    has_medical_data = bool(extracted_symptoms or common_priors or dangerous_priors)
+    if is_medical_query and not has_medical_data and not clarification_question:
+        logger.info("[Triage Evaluation] Empty symptoms, priors & no clarification. Forcing Out of scope.")
         is_medical_query = False
-    elif is_medical_query and not extracted_symptoms and clarification_question:
+    elif is_medical_query and not has_medical_data and clarification_question:
         # It has a clarification question but no symptoms.
         # We need to ensure it's actually a medical context. 
         # If `is_medical_query` is true but the LLM just said "Bạn có triệu chứng gì không?" for a weather query.
@@ -219,8 +221,8 @@ async def suggest_specialties_from_catalog(
     fallback_reason = ""
 
     # 3. Semantic Vector Routing (Hybrid)
-    if specialty_store and extracted_symptoms:
-        query_text = ", ".join(extracted_symptoms)
+    if specialty_store and has_medical_data:
+        query_text = ", ".join(extracted_symptoms) if extracted_symptoms else ""
         # Include demographic in prior text to help vector store match demographic-specific specialties (e.g., Nhi khoa)
         prior_context = common_priors + dangerous_priors
         if patient_demographic:
